@@ -16,9 +16,13 @@ Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'airblade/vim-gitgutter'
+Plug 'ur4ltz/surround.nvim'
+Plug 'luochen1990/rainbow'
+Plug 'ThePrimeagen/vim-be-good'
+Plug 'tpope/vim-fugitive'
 
 if (has("nvim"))
-    Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
 endif
 
@@ -27,6 +31,7 @@ call plug#end()
 " Global Sets """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on            " Enable syntax highlight
 set nu               " Enable line numbers
+set rnu
 set tabstop=4        " Show existing tab with 4 spaces width
 set softtabstop=4    " Show existing tab with 4 spaces width
 set shiftwidth=4     " When indenting with '>', use 4 spaces width
@@ -37,7 +42,7 @@ set hidden           " Hides the current buffer when a new file is openned
 set incsearch        " Incremental search
 set ignorecase       " Ingore case in search
 set smartcase        " Consider case if there is a upper case character
-set scrolloff=8      " Minimum number of lines to keep above and below the cursor
+set scrolloff=12      " Minimum number of lines to keep above and below the cursor
 "set colorcolumn=100  " Draws a line at the given line to keep aware of the line size
 set signcolumn=yes   " Add a column on the left. Useful for linting
 "set cmdheight=2      " Give more space for displaying messages
@@ -57,7 +62,15 @@ set clipboard=unnamed
 let g:blamer_enabled = 1
 let g:blamer_show_in_insert_modes = 0
 let g:blamer_delay = 500
+let NERDTreeShowHidden=1
+lua require"surround".setup{}
+let g:rainbow_active = 1
+autocmd Filetype vue setl shiftwidth=2
 
+nmap <space>h :call LanguageClient#textDocument_definition()<cr>
+nmap <space>k :call LanguageClient#textDocument_codeAction()<cr>
+nmap <space>l :call LanguageClient#handleCodeLensAction()<cr>
+"
 " Themes """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -79,10 +92,10 @@ let g:airline_theme = 'sonokai'
 "  colorscheme onehalfdark
 "  let g:airline_theme='onehalfdark'
 
-"  if (has("nvim")) "Transparent background. Only for nvim
-"      highlight Normal guibg=NONE ctermbg=NONE
-"      highlight EndOfBuffer guibg=NONE ctermbg=NONE
-"  endif
+if (has("nvim")) "Transparent background. Only for nvim
+    highlight Normal guibg=NONE ctermbg=NONE
+    highlight EndOfBuffer guibg=NONE ctermbg=NONE
+endif
 
 " Remaps"""""""""
 
@@ -103,6 +116,7 @@ noremap <space>/ :split<CR> :resize 10<CR> :term<CR>
 nmap op o<Esc>k
 nmap oi O<Esc>j
 nmap oo A<CR>
+nmap oj O
 
 " Create a tab
 nmap te :tabe<CR>
@@ -129,8 +143,8 @@ nmap ss :w<cr>
 map sd :mksession! ~/vim_session <cr>" Quick write session with F2
 
 """""""" Moving lines """"""""
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
@@ -140,11 +154,13 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " go back """"""""""""""""""
 nmap gb `.
+
+nmap fi GopGi
 "Floatterm""""""""""""""""""""
-let g:floaterm_keymap_new = ';ft'
-let g:floatterm_width = 0.8
-let g:floaterm_keymap_hide = ';fc'
-let g:floaterm_keymap_toggle = ';fd'
+let g:floaterm_keymap_new = '[ft'
+let g:floatterm_width = 0.9
+let g:floaterm_keymap_hide = '[fc'
+let g:floaterm_keymap_toggle = '[fd'
 "
 " autocmd"""""""""
 "
@@ -157,7 +173,7 @@ let g:airline_powerline_fonts = 1
 
 
 " nerdtree"""""""""""""""""""""""""
-nmap ;; :NERDTreeToggle<CR>
+nmap <space>; :NERDTreeToggle<CR>
 
 
 " ALE """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
