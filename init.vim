@@ -16,7 +16,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'airblade/vim-gitgutter'
-Plug 'ur4ltz/surround.nvim'
+Plug 'tpope/vim-surround'
 Plug 'luochen1990/rainbow'
 Plug 'ThePrimeagen/vim-be-good'
 Plug 'tpope/vim-fugitive'
@@ -63,7 +63,6 @@ let g:blamer_enabled = 1
 let g:blamer_show_in_insert_modes = 0
 let g:blamer_delay = 500
 let NERDTreeShowHidden=1
-lua require"surround".setup{}
 let g:rainbow_active = 1
 autocmd Filetype vue setl shiftwidth=2
 
