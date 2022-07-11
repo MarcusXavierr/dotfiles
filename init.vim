@@ -18,11 +18,10 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'luochen1990/rainbow'
-Plug 'ThePrimeagen/vim-be-good'
 Plug 'tpope/vim-fugitive'
 
 if (has("nvim"))
-Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
 endif
 
@@ -91,10 +90,10 @@ let g:airline_theme = 'sonokai'
 "  colorscheme onehalfdark
 "  let g:airline_theme='onehalfdark'
 
-if (has("nvim")) "Transparent background. Only for nvim
-    highlight Normal guibg=NONE ctermbg=NONE
-    highlight EndOfBuffer guibg=NONE ctermbg=NONE
-endif
+"if (has("nvim")) "Transparent background. Only for nvim
+"    highlight Normal guibg=NONE ctermbg=NONE
+"    highlight EndOfBuffer guibg=NONE ctermbg=NONE
+"endif
 
 " Remaps"""""""""
 
