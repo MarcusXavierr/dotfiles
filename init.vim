@@ -14,11 +14,12 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
+"Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-fugitive'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
@@ -76,12 +77,12 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-let g:sonokai_style = 'andromeda'
-let g:sonokai_enable_italic = 1
-let g:sonokai_disable_italic_comment = 0
-let g:sonokai_diagnostic_line_highlight = 1
-let g:sonokai_current_word = 'bold'
-colorscheme sonokai
+"let g:sonokai_style = 'andromeda'
+"let g:sonokai_enable_italic = 1
+"let g:sonokai_disable_italic_comment = 0
+"let g:sonokai_diagnostic_line_highlight = 1
+"let g:sonokai_current_word = 'bold'
+colorscheme dracula
 
 let g:airline_theme = 'sonokai'
 "  syntax on
