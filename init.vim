@@ -202,8 +202,9 @@ if (has("nvim"))
     " Telescope """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     nnoremap <space>ff <cmd>Telescope find_files<cr>
     nnoremap <space>fg <cmd>Telescope live_grep<cr>
-    nnoremap <leader>fb <cmd>Telescope buffers<cr>
+    nnoremap <space>fb <cmd>Telescope buffers<cr>
     nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+    nnoremap <space>fr <cmd>Telescope resume<cr>
 endif
 
 
@@ -436,3 +437,8 @@ nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
 
 " List all presets
 nnoremap <space>el :CocList explPresets
+
+lua <<EOF
+require('telescope').setup{ defaults = { file_ignore_patterns = {'vendor', 'public', 'node_modules'} } }
+EOF
+
