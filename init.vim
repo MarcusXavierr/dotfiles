@@ -87,9 +87,13 @@ endif
 "let g:sonokai_disable_italic_comment = 0
 "let g:sonokai_diagnostic_line_highlight = 1
 "let g:sonokai_current_word = 'bold'
-colorscheme dracula
 
+let g:dracula_italic = 1
+let g:dracula_colorterm = 1
+let g:dracula_bold = 1
+let g:dracula_full_special_attrs_support = 1
 let g:airline_theme = 'sonokai'
+colorscheme dracula
 "  syntax on
 "  set t_Co=256
 "  set cursorline
