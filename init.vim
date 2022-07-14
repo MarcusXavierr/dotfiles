@@ -20,6 +20,10 @@ Plug 'tpope/vim-surround'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-fugitive'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'rmagatti/auto-session'
+Plug 'vimwiki/vimwiki'
+
 
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
@@ -65,6 +69,7 @@ let g:blamer_delay = 500
 let NERDTreeShowHidden=1
 let g:rainbow_active = 1
 autocmd Filetype vue setl shiftwidth=2
+let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
 
 nmap <space>h :call LanguageClient#textDocument_definition()<cr>
 nmap <space>k :call LanguageClient#textDocument_codeAction()<cr>
