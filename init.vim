@@ -8,6 +8,7 @@ Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dense-analysis/ale'
+Plug 'vimwiki/vimwiki'
 Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
@@ -22,7 +23,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rmagatti/auto-session'
-Plug 'vimwiki/vimwiki'
+Plug 'ActivityWatch/aw-watcher-vim'
 
 
 if (has("nvim"))
