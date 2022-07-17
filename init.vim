@@ -72,6 +72,12 @@ let g:rainbow_active = 1
 autocmd Filetype vue setl shiftwidth=2
 let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
 
+let wiki = {}
+let wiki.path = '~/my_wiki/'
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'haskell': 'hs'}
+let wiki.template_path = "/Users/marcusxavier/vimwiki/template/default.tpl"
+let g:vimwiki_list = [wiki]
+
 nmap <space>h :call LanguageClient#textDocument_definition()<cr>
 nmap <space>k :call LanguageClient#textDocument_codeAction()<cr>
 nmap <space>l :call LanguageClient#handleCodeLensAction()<cr>
