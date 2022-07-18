@@ -171,6 +171,12 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 nmap gb `.
 
 nmap fi GopGi
+
+""""Vim gitgutter mappings""""
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
+
 "Floatterm""""""""""""""""""""
 let g:floaterm_keymap_new = '[ft'
 let g:floatterm_width = 0.9
