@@ -172,6 +172,9 @@ nmap gb `.
 
 nmap fi GopGi
 
+""""Remove highlight""""
+nmap sh :noh <CR>
+
 """"Vim gitgutter mappings""""
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
