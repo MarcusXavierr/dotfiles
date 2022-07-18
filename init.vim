@@ -181,7 +181,7 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
 "Fugitive keymaps""""""""
-nmap <C-g> :G <C>
+nmap <C-g> :G <CR>
 "Floatterm""""""""""""""""""""
 let g:floaterm_keymap_new = '[ft'
 let g:floatterm_width = 0.9
