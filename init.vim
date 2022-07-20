@@ -189,6 +189,9 @@ let g:floaterm_keymap_hide = '[fc'
 let g:floaterm_keymap_toggle = '[fd'
 "
 " autocmd"""""""""
+autocmd BufWinEnter ~/appmax/sistema/.git/COMMIT_EDITMSG 0r !~/.config/nvim/.script
+autocmd BufNewFile ~/my_wiki/diary/*.wiki :silent 0r !~/my_wiki/diary/template.py '%'
+"
 "
 " autocmds aqui
 
