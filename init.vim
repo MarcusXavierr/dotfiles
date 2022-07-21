@@ -79,6 +79,7 @@ let g:vimwiki_list = [wiki]
 nmap <space>h :call LanguageClient#textDocument_definition()<cr>
 nmap <space>k :call LanguageClient#textDocument_codeAction()<cr>
 nmap <space>l :call LanguageClient#handleCodeLensAction()<cr>
+
 "
 " Themes """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists('+termguicolors')
