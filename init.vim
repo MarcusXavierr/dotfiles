@@ -15,7 +15,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
-"Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'luochen1990/rainbow'
