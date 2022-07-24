@@ -23,7 +23,8 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rmagatti/auto-session'
 Plug 'ActivityWatch/aw-watcher-vim'
-
+"Plug 'OmniSharp/omnisharp-vim'
+Plug 'fatih/vim-go', {'for': 'go'}
 
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
