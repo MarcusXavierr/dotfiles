@@ -70,6 +70,7 @@ let NERDTreeShowHidden=1
 let g:rainbow_active = 1
 autocmd Filetype vue setl shiftwidth=2
 let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
+let g:go_doc_keywordprg_enabled = 0
 
 let wiki = {}
 let wiki.path = '~/my_wiki/'
