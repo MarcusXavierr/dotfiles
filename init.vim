@@ -25,6 +25,7 @@ Plug 'rmagatti/auto-session'
 Plug 'ActivityWatch/aw-watcher-vim'
 "Plug 'OmniSharp/omnisharp-vim'
 Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'vim-test/vim-test'
 
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
@@ -71,6 +72,14 @@ let g:rainbow_active = 1
 autocmd Filetype vue setl shiftwidth=2
 let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
 let g:go_doc_keywordprg_enabled = 0
+" vim-test configuration
+if has('nvim')
+    let test#strategy='neovim'
+else
+    let test#strategy = "floaterm"
+endif
+let test#php#runner='phpunit'
+let test#php#phpunit#executable=' docker-compose -f ./docker-compose.yml exec -u appmax -T php-fpm vendor/bin/phpunit'
 
 let wiki = {}
 let wiki.path = '~/my_wiki/'
@@ -189,6 +198,20 @@ let g:floatterm_width = 0.9
 let g:floaterm_keymap_hide = '[fc'
 let g:floaterm_keymap_toggle = '[fd'
 "
+"Vim-go """"""""""""""
+nmap gt :GoTest <CR>
+nmap tg <C-j> :bd <CR>
+
+" Vim-test keymaps """"""""""""""
+nmap <silent> <space>t :TestNearest<CR>
+nmap <silent> <space>ft :TestFile<CR>
+nmap <silent> <space>fs :TestSuite<CR>
+nmap <silent> [l :TestSuite<CR>
+
+if has('nvim')
+  tmap <C-o> <C-\><C-n>
+endif
+
 " autocmd"""""""""
 autocmd BufWinEnter ~/appmax/sistema/.git/COMMIT_EDITMSG 0r !~/.config/nvim/.script
 autocmd BufNewFile ~/my_wiki/diary/*.wiki 0r !~/my_wiki/diary/template.py '%'
