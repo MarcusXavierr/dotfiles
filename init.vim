@@ -525,3 +525,11 @@ require'nvim-treesitter.configs'.setup {
 EOF
 end
 
+lua <<EOF
+require('neoscroll').setup()
+local t = {}
+-- Syntax: t[keys] = {function, {function arguments}}
+t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '750'}}
+t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '250'}}
+EOF
+end
