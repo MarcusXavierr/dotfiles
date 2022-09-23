@@ -33,7 +33,7 @@ if (has("nvim"))
     Plug 'karb94/neoscroll.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'numToStr/Comment.nvim'
-    Plug 'ThePrimeagen/harpoon'
+"     Plug 'ThePrimeagen/harpoon'
 endif
 
 call plug#end()
