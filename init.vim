@@ -1,35 +1,39 @@
 call plug#begin()
 Plug 'sainnhe/sonokai'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
-"Plug 'sheerun/vim-polyglot'
 Plug 'preservim/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dense-analysis/ale'
-Plug 'vimwiki/vimwiki'
-Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
+" Plug 'vimwiki/vimwiki'
+"Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
+Plug 'neoclide/coc.nvim' , { 'commit' : '52032ad89121f16633f23672cec06f1039889879' }
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', {'for': ['html', 'vue']}
 Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
-Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-fugitive'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rmagatti/auto-session'
 Plug 'ActivityWatch/aw-watcher-vim'
-"Plug 'OmniSharp/omnisharp-vim'
+Plug 'OmniSharp/omnisharp-vim'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vim-test/vim-test'
-
+Plug 'ap/vim-css-color'
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+    Plug 'karb94/neoscroll.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'numToStr/Comment.nvim'
+    Plug 'ThePrimeagen/harpoon'
 endif
 
 call plug#end()
@@ -48,7 +52,7 @@ set hidden           " Hides the current buffer when a new file is openned
 set incsearch        " Incremental search
 set ignorecase       " Ingore case in search
 set smartcase        " Consider case if there is a upper case character
-set scrolloff=12      " Minimum number of lines to keep above and below the cursor
+set scrolloff=9      " Minimum number of lines to keep above and below the cursor
 set signcolumn=yes   " Add a column on the left. Useful for linting
 "set cmdheight=2      " Give more space for displaying messages
 set updatetime=100   " Time in miliseconds to consider the changes
@@ -69,7 +73,12 @@ let g:blamer_show_in_insert_modes = 0
 let g:blamer_delay = 500
 let NERDTreeShowHidden=1
 let g:rainbow_active = 1
+
 autocmd Filetype vue setl shiftwidth=2
+autocmd Filetype javascript setl shiftwidth=2
+autocmd Filetype html setl shiftwidth=2
+autocmd Filetype css setl shiftwidth=2
+
 let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
 let g:go_doc_keywordprg_enabled = 0
 " vim-test configuration
@@ -81,15 +90,44 @@ endif
 let test#php#runner='phpunit'
 let test#php#phpunit#executable=' docker-compose -f ./docker-compose.yml exec -u appmax -T php-fpm vendor/bin/phpunit'
 
+" vim wiki configuration
 let wiki = {}
 let wiki.path = '~/my_wiki/'
 let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'haskell': 'hs'}
 let wiki.template_path = "/Users/marcusxavier/vimwiki/template/default.tpl"
 let g:vimwiki_list = [wiki]
 
+"emmet
+let g:user_emmet_leader_key=','
+let g:user_emmet_mode='nv'
+
+autocmd VimEnter * call s:setup_bufferline()
+function! s:setup_bufferline() abort
+lua<<EOF
+require('bufferline').setup {
+    options= {
+            max_name_length = 30,
+            tab_size = 15
+        }
+    }
+EOF
+endfunction
+
+" Prettier for PHP
+function PrettierPhpCursor()
+ let save_pos = getpos(".")
+  %! prettier --parser=php
+  " undo automatically on error
+  if v:shell_error | silent undo | endif
+  call setpos('.', save_pos)
+endfunction
+" define custom command
+
+command PrettierPhp call PrettierPhpCursor()
+
 nmap <space>h :call LanguageClient#textDocument_definition()<cr>
 nmap <space>k :call LanguageClient#textDocument_codeAction()<cr>
-nmap <space>l :call LanguageClient#handleCodeLensAction()<cr>
+"nmap <space>l :call LanguageClient#handleCodeLensAction()<cr>
 
 "
 " Themes """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -110,6 +148,7 @@ let g:dracula_colorterm = 1
 let g:dracula_bold = 1
 let g:dracula_full_special_attrs_support = 1
 let g:airline_theme = 'sonokai'
+
 colorscheme dracula
 "  syntax on
 "  set t_Co=256
@@ -179,8 +218,6 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " go back """"""""""""""""""
 nmap gb `.
-
-nmap fi GopGi
 
 """"Remove highlight""""
 nmap sh :noh <CR>
@@ -304,6 +341,21 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+
+
+"  New Coc version, who is with a bug
+"  function! s:check_back_space() abort
+"    let col = col('.') - 1
+"    return !col || getline('.')[col - 1]  =~# '\s'
+"  endfunction
+"
+"  " Insert <tab> when previous text is space, refresh completion if not.
+"  inoremap <silent><expr> <TAB>
+"	\ coc#pum#visible() ? coc#pum#next(1):
+"	\ <SID>check_back_space() ? "\<Tab>" :
+"	\ coc#refresh()
+"  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
@@ -316,6 +368,10 @@ endif
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+"			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+"inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -326,7 +382,20 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+augroup omnisharp_commands
+  autocmd!
 
+  " Show type information automatically when the cursor stops moving.
+  " Note that the type is echoed to the Vim command line, and will overwrite
+  " any other messages in this space including e.g. ALE linting messages.
+autocmd CursorHold *.cs OmniSharpTypeLookup
+autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+autocmd FileType cs nmap <silent> <buffer> gu <Plug>(omnisharp_find_usages)
+autocmd FileType cs nmap <silent> <buffer> gi <Plug>(omnisharp_find_implementations)
+autocmd FileType cs nmap <silent> <buffer> K <Plug>(omnisharp_documentation)
+autocmd FileType cs nmap <silent> <buffer> <leader>ac <Plug>(omnisharp_code_actions)
+autocmd FileType cs nmap <silent> <buffer> <Leader>rn <Plug>(omnisharp_rename)
+augroup END
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
@@ -415,7 +484,7 @@ nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
 nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
@@ -484,14 +553,35 @@ nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
 nnoremap <space>el :CocList explPresets
 
 lua <<EOF
-require('telescope').setup{ defaults = { file_ignore_patterns = {'vendor', 'public', 'node_modules'} } }
+require('telescope').setup{
+    defaults = {
+        file_ignore_patterns = {'vendor', 'public', 'node_modules'},
+        width=0.9,
+        use_less=true,
+        results_width=0.8
+    },
+     extensions = {
+        fzf = {
+          fuzzy = true,                    -- false will only do exact matching
+          override_generic_sorter = true,  -- override the generic sorter
+          override_file_sorter = true,     -- override the file sorter
+          case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                           -- the default case_mode is "smart_case"
+        }
+      }
+}
+
+require('telescope').load_extension('fzf')
 EOF
 
 "TREESITTER """"""""""""""""""""""""""""""
 if has("nvim-0.5.0")
 "nvim-treesitter configuration
 
+
+
 lua << EOF
+
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = { "vue", "javascript", "php" },
@@ -513,7 +603,7 @@ require'nvim-treesitter.configs'.setup {
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
     -- the name of the parser)
     -- list of language that will be disabled
-    disable = {},
+    disable = {'html', 'css'},
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -521,9 +611,21 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+
+  indent = {
+    enable = true,
+    disable = {'vue', 'js', 'html'}
+  },
+  rainbow = {
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    -- colors = {}, -- table of hex strings
+    -- termcolors = {} -- table of colour name strings
+  }
 }
 EOF
-end
 
 lua <<EOF
 require('neoscroll').setup()
@@ -531,5 +633,41 @@ local t = {}
 -- Syntax: t[keys] = {function, {function arguments}}
 t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '750'}}
 t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '250'}}
+EOF
+
+lua << EOF
+require('Comment').setup(
+{
+    toggler = {
+        ---Line-comment toggle keymap
+        line = 'gcc',
+        ---Block-comment toggle keymap
+        block = '<space>cc',
+    },
+    ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+    opleader = {
+        ---Line-comment keymap
+        line = 'gc',
+        ---Block-comment keymap
+        block = '<space>c',
+    },
+    ---LHS of extra mappings
+    extra = {
+        ---Add comment on the line above
+        above = 'gcO',
+        ---Add comment on the line below
+        below = 'gco',
+        ---Add comment at the end of line
+        eol = 'gcA',
+    },
+    ---Enable keybindings
+    ---NOTE: If given `false` then the plugin won't create any mappings
+    mappings = {
+        ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+        basic = true,
+    },
+}
+)
+
 EOF
 end
