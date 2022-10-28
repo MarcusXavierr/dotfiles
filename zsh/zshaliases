@@ -1,0 +1,19 @@
+#personal aliases
+alias vw=nvim\ ~/vimwiki/index.wiki
+#
+#alias to grep history
+alias h="history | grep"
+
+#cls alias
+if [ -x "$(command -v colorls)" ]; then
+    alias cls="colorls"
+    alias cla="colorls -al"
+fi
+
+#anki
+alias ahd="anki-helper add -d"
+alias ah=anki-helper
+#
+#exercism
+alias es="exercism submit"
+
