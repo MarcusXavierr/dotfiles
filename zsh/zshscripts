@@ -9,3 +9,21 @@ function upsistema() {
     sleep 12
     cd ~/appmax/sistema && make up
 }
+
+#macro to get Jira task code on branch's name
+function get_branch_code() {
+    echo "[$(git branch | grep "*" | awk '{print $2}' |  grep -o '[A-z0-9]*-\d\d\?\d\?\d\?')]"
+}
+
+#macro to wait app.js to build and then commit my build
+function deploy_appjs() {
+    lockFile="$1"
+    while [ -f "$lockFile" ];
+    do
+        sleep 10
+    done
+
+    git add public/assets/js/app.js
+    git commit -m "$(get_branch_code) build app.js"
+    git push
+}
