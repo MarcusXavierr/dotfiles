@@ -12,7 +12,10 @@ function upsistema() {
 
 #macro to get Jira task code on branch's name
 function get_branch_code() {
-    echo "[$(git branch | grep "*" | awk '{print $2}' |  grep -o '[A-z0-9]*-\d\d\?\d\?\d\?')]"
+    code="$(git branch | grep "*" | awk '{print $2}' |  grep -o '[A-z0-9]*-\d\d\?\d\?\d\?')"
+    if [ ! -z "$code" ]; then
+      echo "[$code]"
+    fi
 }
 
 function get_branch_name() {
