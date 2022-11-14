@@ -1,5 +1,6 @@
 #personal aliases
 alias vw=nvim\ ~/vimwiki/index.wiki
+alias vz="zettelkasten"
 #
 #alias to grep history
 alias h="history | grep"
@@ -16,4 +17,9 @@ alias ah=anki-helper
 #
 #exercism
 alias es="exercism submit"
+
+#work aliases
+alias deploy="deploy_appjs"
+alias mergedev="merge_from_develop"
+alias cfc="checkout_from_code"
 

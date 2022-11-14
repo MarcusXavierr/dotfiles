@@ -15,9 +15,13 @@ function get_branch_code() {
     echo "[$(git branch | grep "*" | awk '{print $2}' |  grep -o '[A-z0-9]*-\d\d\?\d\?\d\?')]"
 }
 
+function get_branch_name() {
+    echo "$(git branch | grep "*" | awk '{print $2}')"
+}
+
 #macro to wait app.js to build and then commit my build
 function deploy_appjs() {
-    lockFile="$1"
+    lockFile="${1:-lockfile}"
     while [ -f "$lockFile" ];
     do
         sleep 10
@@ -26,4 +30,22 @@ function deploy_appjs() {
     git add public/assets/js/app.js
     git commit -m "$(get_branch_code) build app.js"
     git push
+}
+
+function merge_from_develop() {
+    branch=$(get_branch_name)
+    git checkout develop
+    git pull
+    git checkout $branch
+    git merge develop
+}
+
+function search_branch() {
+    branchCode=$1
+    echo "$(git branch | grep $branchCode | awk '{print $NF}')"
+}
+
+function checkout_from_code() {
+    code=$1
+    git checkout $(search_branch $code)
 }

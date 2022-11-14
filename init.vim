@@ -6,19 +6,19 @@ Plug 'preservim/nerdtree'
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dense-analysis/ale'
-" Plug 'vimwiki/vimwiki'
-"Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
+Plug 'vimwiki/vimwiki'
+" Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
 Plug 'neoclide/coc.nvim' , { 'commit' : '52032ad89121f16633f23672cec06f1039889879' }
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/emmet-vim', {'for': ['html', 'vue']}
+Plug 'mattn/emmet-vim', {'for': ['html', 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact']}
 Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
 Plug 'rmagatti/auto-session'
 Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'OmniSharp/omnisharp-vim'
@@ -75,9 +75,9 @@ let NERDTreeShowHidden=1
 let g:rainbow_active = 1
 
 autocmd Filetype vue setl shiftwidth=2
-autocmd Filetype javascript setl shiftwidth=2
-autocmd Filetype html setl shiftwidth=2
-autocmd Filetype css setl shiftwidth=2
+autocmd Filetype javascript,typescript setl shiftwidth=2
+autocmd Filetype html,javascriptreact,typescriptreact setl shiftwidth=2
+autocmd Filetype css,json setl shiftwidth=2
 
 let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
 let g:go_doc_keywordprg_enabled = 0
@@ -149,7 +149,21 @@ let g:dracula_bold = 1
 let g:dracula_full_special_attrs_support = 1
 let g:airline_theme = 'sonokai'
 
-colorscheme dracula
+" colorscheme dracula
+
+let g:onedark_config = {
+  \ 'style': 'darker',
+  \ 'toggle_style_key': '<leader>ts',
+  \ 'ending_tildes': v:true,
+  \ 'diagnostics': {
+    \ 'darker': v:false,
+    \ 'background': v:true,
+    \ 'undercurl': v:true,
+  \ },
+\ }
+
+colorscheme onedark
+
 "  syntax on
 "  set t_Co=256
 "  set cursorline
@@ -162,6 +176,7 @@ colorscheme dracula
 "endif
 
 " Remaps"""""""""
+lua require('marcusxavier.keybinds')
 
 " Use space as leader"""""""
 "  let mapleader=" "
@@ -176,86 +191,59 @@ map <C-l> <C-w>l
 
 noremap <space>/ :split<CR> :resize 10<CR> :term<CR>
 
-" Adding an empty line below, above and below with insert
-nmap op o<Esc>k
-nmap oi O<Esc>j
-nmap oo A<CR>
-nmap oj O
-
 " Create a tab
 nmap te :tabe<CR>
 
 " Navigate between buffers
-nmap ty :bn<CR>
-nmap tr :bp<CR>
 
-" Delete a buffer
-nmap td :bd<CR>
-
-" Create splits
-nmap th :split<CR>
-nmap tv :vsplit<CR>
-
-" Close splits and others
-nmap tt :q<CR>
-
-" Call command shortcut
-nmap tc :!
-
-nmap ss :w<cr>
-
-map sd :mksession! ~/vim_session <cr>" Quick write session with F2
-
-"""""""" Moving lines """"""""
-nnoremap ∆ :m .+1<CR>==
-nnoremap ˚ :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-
-:inoremap jj <Esc>
-
-" go back """"""""""""""""""
-nmap gb `.
-
-""""Remove highlight""""
-nmap sh :noh <CR>
-
-""""Vim gitgutter mappings""""
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
-
-"Fugitive keymaps""""""""
-nmap <C-g> :G <CR>
 "Floatterm""""""""""""""""""""
 let g:floaterm_keymap_new = '[ft'
 let g:floatterm_width = 0.9
 let g:floaterm_keymap_hide = '[fc'
 let g:floaterm_keymap_toggle = '[fd'
 "
-"Vim-go """"""""""""""
-nmap gt :GoTest <CR>
-nmap tg <C-j> :bd <CR>
 
-" Vim-test keymaps """"""""""""""
-nmap <silent> <space>t :TestNearest<CR>
-nmap <silent> <space>ft :TestFile<CR>
-nmap <silent> <space>fs :TestSuite<CR>
-nmap <silent> [l :TestSuite<CR>
+nnoremap <silent><space>1 <cmd>lua require("bufferline").go_to_buffer(1, true)<cr>
+nnoremap <silent><space>2 <cmd>lua require("bufferline").go_to_buffer(2, true)<cr>
+nnoremap <silent><space>3 <cmd>lua require("bufferline").go_to_buffer(3, true)<cr>
+nnoremap <silent><space>4 <cmd>lua require("bufferline").go_to_buffer(4, true)<cr>
+nnoremap <silent><space>5 <cmd>lua require("bufferline").go_to_buffer(5, true)<cr>
+nnoremap <silent><space>6 <cmd>lua require("bufferline").go_to_buffer(6, true)<cr>
+nnoremap <silent><space>7 <cmd>lua require("bufferline").go_to_buffer(7, true)<cr>
+nnoremap <silent><space>8 <cmd>lua require("bufferline").go_to_buffer(8, true)<cr>
+nnoremap <silent><space>9 <cmd>lua require("bufferline").go_to_buffer(9, true)<cr>
+nnoremap <silent><space>$ <cmd>lua require("bufferline").go_to_buffer(-1, true)<cr>
 
-if has('nvim')
-  tmap <C-o> <C-\><C-n>
-endif
+"Speller
+nnoremap sa zg
+nnoremap sc z=
 
+
+nnoremap <silent><space>i `^
+
+"PrettierPhp
+nnoremap <leader>p :PrettierPhp<CR>
+
+"PHP_CODESNIFFER
+nnoremap <leader>cs :! php ~/.php/phpcs --standard=PSR12 %:p <CR>
+nnoremap <leader>cb :! php ~/.php/phpcbf --standard=PSR12 %:p <CR>
+"" A syntax for placeholders
+" Pressing Control-j jumps to the next match.
+nmap <space><space> <Esc>/<++><CR><Esc>cf>
+"
 " autocmd"""""""""
-autocmd BufWinEnter ~/appmax/sistema/.git/COMMIT_EDITMSG 0r !~/.config/nvim/.script
+augroup teste
+autocmd!
+autocmd WinEnter ~/appmax/sistema/.git/COMMIT_EDITMSG 0r !~/.config/nvim/.script
+augroup END
+
 autocmd BufNewFile ~/my_wiki/diary/*.wiki 0r !~/my_wiki/diary/template.py '%'
+
+autocmd BufNewFile,BufRead *.blade.php set syntax=html
+autocmd BufNewFile,BufRead *.blade.php set filetype=html
 "
 "
 " autocmds aqui
-
 
 " AirLine """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
@@ -285,6 +273,7 @@ if (has("nvim"))
     nnoremap <space>ff <cmd>Telescope find_files<cr>
     nnoremap <space>fg <cmd>Telescope live_grep<cr>
     nnoremap <space>fb <cmd>Telescope buffers<cr>
+    nnoremap <space>of <cmd>Telescope oldfiles<cr>
     nnoremap <leader>fh <cmd>Telescope help_tags<cr>
     nnoremap <space>fr <cmd>Telescope resume<cr>
 endif
@@ -412,6 +401,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ef <Plug>(coc-extract-function)
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -486,7 +476,7 @@ nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
 " nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
 nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
@@ -567,6 +557,11 @@ require('telescope').setup{
           override_file_sorter = true,     -- override the file sorter
           case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
                                            -- the default case_mode is "smart_case"
+        }
+      },
+    pickers = {
+        buffers = {
+         path_display = {'tail'},
         }
       }
 }
