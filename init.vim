@@ -155,7 +155,6 @@ let g:airline_theme = 'sonokai'
 
 let g:onedark_config = {
   \ 'style': 'darker',
-  \ 'toggle_style_key': '<leader>ts',
   \ 'ending_tildes': v:true,
   \ 'diagnostics': {
     \ 'darker': v:false,
@@ -197,6 +196,8 @@ noremap <space>/ :split<CR> :resize 10<CR> :term<CR>
 nmap te :tabe<CR>
 
 " Navigate between buffers
+"nmap ty :BufferNext<CR>
+"nmap tr :BufferPrevious<CR>
 
 "Floatterm""""""""""""""""""""
 let g:floaterm_keymap_new = '[ft'
@@ -220,8 +221,13 @@ nnoremap <silent><space>$ <cmd>lua require("bufferline").go_to_buffer(-1, true)<
 nnoremap sa zg
 nnoremap sc z=
 
+"mkdx
+let g:mkdx#settings = { 'map': { 'prefix': '<space>' } }
 
+
+" utilitarios
 nnoremap <silent><space>i `^
+map sd :mksession! ~/vim_session <cr>
 
 "PrettierPhp
 nnoremap <leader>p :PrettierPhp<CR>
