@@ -25,6 +25,7 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vim-test/vim-test'
 Plug 'ap/vim-css-color'
+Plug 'SidOfc/mkdx', {'for': 'markdown'}
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -33,13 +34,14 @@ if (has("nvim"))
     Plug 'karb94/neoscroll.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'numToStr/Comment.nvim'
-"     Plug 'ThePrimeagen/harpoon'
+    Plug 'navarasu/onedark.nvim'
+    Plug 'nvim-tree/nvim-tree.lua'
 endif
 
 call plug#end()
 
 " Global Sets """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax on            " Enable syntax highlight
+set syntax=off            " Enable syntax highlight
 set nu               " Enable line numbers
 set rnu
 set tabstop=4        " Show existing tab with 4 spaces width
