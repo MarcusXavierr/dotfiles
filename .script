@@ -1,1 +1,4 @@
-echo "[$(git branch | grep "*" | awk '{print $2}' |  grep -o '[A-z|0-9]*-\d\d\?\d\?\d\?')]"
+    code="$(git branch | grep "*" | awk '{print $2}' |  grep -o '[A-z0-9]*-\d\d\?\d\?\d\?')"
+    if [ ! -z "$code" ]; then
+      echo "[$code]"
+    fi
