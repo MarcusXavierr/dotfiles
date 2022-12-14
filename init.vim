@@ -646,6 +646,9 @@ t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '750'}}
 t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '250'}}
 EOF
 
+" lua vim.api.nvim_set_hl(0, "TSPunctBracket", { fg = "#888D97" })
+" lua vim.api.nvim_set_hl(0, "TSPunctDelimiter", { fg = "#888D97" })
+
 lua << EOF
 require('Comment').setup(
 {
