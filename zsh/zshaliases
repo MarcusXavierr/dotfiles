@@ -1,6 +1,6 @@
 #personal aliases
 alias vw=nvim\ ~/vimwiki/index.wiki
-alias vz="zettelkasten"
+alias vz="cd ~/Projects/obsidian/Obsidian && zettelkasten"
 #
 #alias to grep history
 alias h="history | grep"
