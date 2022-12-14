@@ -551,12 +551,20 @@ nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
 nnoremap <space>el :CocList explPresets
 
 lua <<EOF
+local actions = require('telescope.actions')
+
 require('telescope').setup{
     defaults = {
         file_ignore_patterns = {'vendor', 'public', 'node_modules'},
         width=0.9,
         use_less=true,
-        results_width=0.8
+        results_width=0.8,
+        mappings = {
+            n = {
+               ['q'] = actions.close,
+               ['dd'] = actions.delete_buffer,
+            }
+        }
     },
      extensions = {
         fzf = {
