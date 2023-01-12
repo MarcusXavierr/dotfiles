@@ -6,8 +6,10 @@ local function keymap_lsp(client)
     map('n', 'gd', vim.lsp.buf.definition, {buffer=0})
     map('n', 'gt', vim.lsp.buf.type_definition, {buffer=0})
     map('n', 'gi', vim.lsp.buf.implementation, {buffer=0})
+    map('n', 'gr', vim.lsp.buf.references, {buffer=0})
     map('n', '<space>dj', vim.diagnostic.goto_next, {buffer=0})
     map('n', '<space>dk', vim.diagnostic.goto_prev, {buffer=0})
+    map('n', '<space>df', vim.diagnostic.open_float, {buffer=0})
     map('n', '<space>r', vim.lsp.buf.rename, {buffer=0})
     map('n', '<space>ac', vim.lsp.buf.code_action, {buffer=0})
     map('v', '<space>ar', vim.lsp.buf.range_code_action, {buffer=0})
@@ -22,6 +24,16 @@ require'lspconfig'.tsserver.setup{
     capabilities=capabilities,
     on_attach=keymap_lsp,
 }
+
+require'lspconfig'.intelephense.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp,
+}
+
+-- require'lspconfig'.vuels.setup{
+--     capabilities=capabilities,
+--     on_attach=keymap_lsp,
+-- }
 
 require'lspconfig'.sumneko_lua.setup {
   capabilities=capabilities,
@@ -48,12 +60,24 @@ require'lspconfig'.sumneko_lua.setup {
   },
 }
 
-vim.opt.completeopt={"menu", "menuone", "noselect"}
+-- require('trouble').setup{
+--     signs = {
+--         -- icons / text used for a diagnostic
+--         error = "",
+--         warning = "",
+--         hint = "",
+--         information = "",
+--         other = "﫠"
+--     },
+--     use_diagnostic_signs = true
+-- }
+vim.opt.completeopt={"menu", "menuone", "noselect"} -- don't autocomplete first option automatically
 
 -- Set up nvim-cmp.
 local cmp = require'cmp'
 
 cmp.setup({
+    preselect = cmp.PreselectMode.None,
     snippet = {
         expand = function(args)
             require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
@@ -73,6 +97,7 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' }, -- For luasnip users.
+        { name = 'orgmode' }
     }, {
             { name = 'buffer' },
         })

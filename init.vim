@@ -34,9 +34,19 @@ if (has("nvim"))
     Plug 'numToStr/Comment.nvim'
     Plug 'navarasu/onedark.nvim'
     Plug 'nvim-tree/nvim-tree.lua'
-endif
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'L3MON4D3/LuaSnip'
+    Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'anuvyklack/pretty-fold.nvim', { 'for': 'markdown' }
+    endif
 
 call plug#end()
+
+" lua require('marcusxavier.plugins.lsp')
 
 " Global Sets """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set syntax=off            " Enable syntax highlight
