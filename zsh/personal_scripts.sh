@@ -10,3 +10,9 @@ function zettelkasten() {
     esac
 }
 
+function ide() {
+    tmux split-pane -h
+    tmux last-pane
+    tmux split-pane -v
+    tmux new-window
+}

@@ -52,3 +52,12 @@ function checkout_from_code() {
     code=$1
     git checkout $(search_branch $code)
 }
+
+function workide() {
+    tmux split-pane -h
+    tmux last-pane
+    tmux split-pane -v
+    tmux new-window
+    tmux last-window
+    docker exec -it -u root appmax_php7_develop71 bash
+}
