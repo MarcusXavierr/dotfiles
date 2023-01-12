@@ -88,9 +88,11 @@ autocmd Filetype vue setl shiftwidth=2
 autocmd Filetype javascript,typescript setl shiftwidth=2
 autocmd Filetype html,javascriptreact,typescriptreact setl shiftwidth=2
 autocmd Filetype css,json setl shiftwidth=2
+" autocmd FileType markdown setlocal foldmethod=marker foldexpr=0
 
 let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
 let g:go_doc_keywordprg_enabled = 0
+
 " vim-test configuration
 if has('nvim')
     let test#strategy='neovim'
@@ -233,7 +235,8 @@ map sd :mksession! ~/vim_session <cr>
 
 "PrettierPhp
 nnoremap <leader>p :PrettierPhp<CR>
-
+nmap <space>e :NvimTreeToggle<cr>
+lua require("nvim-tree").setup()
 "PHP_CODESNIFFER
 nnoremap <leader>cs :! php ~/.php/phpcs --standard=PSR12 %:p <CR>
 nnoremap <leader>cb :! php ~/.php/phpcbf --standard=PSR12 %:p <CR>
@@ -356,11 +359,11 @@ endfunction
 "  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+" if has('nvim')
+"   inoremap <silent><expr> <c-space> coc#refresh()
+" else
+"   inoremap <silent><expr> <c-@> coc#refresh()
+" endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
