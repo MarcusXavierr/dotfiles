@@ -3,7 +3,6 @@ Plug 'sainnhe/sonokai'
 Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdtree'
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dense-analysis/ale'
 Plug 'vimwiki/vimwiki'
@@ -22,10 +21,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f4
 Plug 'rmagatti/auto-session'
 Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'OmniSharp/omnisharp-vim'
-Plug 'fatih/vim-go', {'for': 'go'}
+" Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vim-test/vim-test'
 Plug 'ap/vim-css-color'
-Plug 'SidOfc/mkdx', {'for': 'markdown'}
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -92,12 +90,6 @@ endif
 let test#php#runner='phpunit'
 let test#php#phpunit#executable=' docker-compose -f ./docker-compose.yml exec -u appmax -T php-fpm vendor/bin/phpunit'
 
-" vim wiki configuration
-let wiki = {}
-let wiki.path = '~/my_wiki/'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'haskell': 'hs'}
-let wiki.template_path = "/Users/marcusxavier/vimwiki/template/default.tpl"
-let g:vimwiki_list = [wiki]
 
 "emmet
 let g:user_emmet_leader_key=','
@@ -685,3 +677,40 @@ require('Comment').setup(
 
 EOF
 end
+
+"---------------------------------Fold configuration
+set foldtext=CustomText()
+
+function! CustomText()
+     "get first non-blank line
+    let fs = v:foldstart
+    while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
+    endwhile
+    if fs > v:foldend
+        let line = getline(v:foldstart)
+    else
+        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+    endif
+
+    let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+    let foldSize = 1 + v:foldend - v:foldstart
+    let foldSizeStr = " " . foldSize . " lines "
+    let foldLevelStr = repeat(" ┣━━", v:foldlevel)
+    let lineCount = line("$")
+    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+    let expansionString = repeat("━", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+endfunction
+"------------------------------ End fold configuration
+
+" ========================================================= VIM WIKI CONFIGURATION
+let wiki = {}
+let wiki.path = '~/tmp/wiki/'
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'haskell': 'hs'}
+let wiki.syntax = 'markdown'
+let wiki.ext = '.md'
+let g:vimwiki_list = [wiki]
+" let g:vimwiki_folding = 'list'
+let g:vimwiki_listsyms = ' ○◐●✓'
+" =======================================================
+
