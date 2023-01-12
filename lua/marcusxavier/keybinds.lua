@@ -63,3 +63,14 @@ map('n', '<space>l', ':TestLast<CR>', true)
 
 vim.cmd('tmap <C-o> <C-\\><C-n>')
 map('n', '<leader>t', '<cmd>0r !~/Projects/obsidian/template.py <CR>')
+
+--Vimwiki bindings
+map('n', '<space>ww', '<cmd> VimwikiIndex<cr>') -- Open Vimwiki index
+map('n', '<space>wd', '<cmd> VimwikiDiaryIndex<cr>') -- Open Vimwiki diary index
+map('n', '<space>wn', '<cmd> VimwikiMakeDiaryNote<cr>') -- Open today's diary note
+map('n', '<space>wt', '<cmd> VimwikiMakeTomorrowDiaryNote<cr>') -- Open tomorrow's diary note
+map('n', '<space>wl', '<cmd> VimwikiDiaryGenerateLinks<cr>') -- Open tomorrow's diary note
+map({'n', 'v'}, '<space>mt', '<cmd> VimwikiToggleListItem<cr>') -- Toggle (or create) checkbox
+-- map('n', '<space>ml', '<cmd> loadview<cr>') -- Load folds
+-- map('n', '<space>mf', '<cmd> mkview<cr>') -- Save folds
+-- map('n', '<space>wm', ':norm gg0/----V/----:g/    =Äkb-/norm zzfkÄkbÄkbÄkbÄkbzfksh<cr>')
