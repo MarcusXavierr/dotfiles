@@ -30,10 +30,28 @@ require'lspconfig'.intelephense.setup{
     on_attach=keymap_lsp,
 }
 
--- require'lspconfig'.vuels.setup{
---     capabilities=capabilities,
---     on_attach=keymap_lsp,
--- }
+require'lspconfig'.volar.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp,
+}
+
+require'lspconfig'.tailwindcss.setup{
+    capabilities=capabilities,
+    on_attach = function(client)
+        keymap_lsp(client)
+        client.server_capabilities.completionProvider = false
+    end
+}
+
+require'lspconfig'.racket_langserver.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp
+}
+
+require'lspconfig'.astro.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp
+}
 
 require'lspconfig'.sumneko_lua.setup {
   capabilities=capabilities,
