@@ -1,6 +1,9 @@
 #personal aliases
 alias vw=nvim\ ~/tmp/wiki/index.md
 alias vz="cd ~/Projects/obsidian/Obsidian && zettelkasten"
+alias c=bat
+alias aic=aicommits
+alias t=tmux
 #
 #alias to grep history
 alias h="history | grep"
@@ -22,4 +25,5 @@ alias es="exercism submit"
 alias deploy="deploy_appjs"
 alias mergedev="merge_from_develop"
 alias cfc="checkout_from_code"
-
+# alias pj=pomodoro_jira
+alias pj='jira issue worklog add $(get_jira_code) "25m" --no-input'
