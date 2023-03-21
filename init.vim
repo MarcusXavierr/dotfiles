@@ -23,7 +23,8 @@ Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'OmniSharp/omnisharp-vim'
 " Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vim-test/vim-test'
-Plug 'ap/vim-css-color'
+" Plug 'ap/vim-css-color'
+" Plug 'christoomey/vim-tmux-navigator'
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -41,13 +42,19 @@ if (has("nvim"))
     Plug 'hrsh7th/cmp-path'
     Plug 'L3MON4D3/LuaSnip'
     Plug 'saadparwaiz1/cmp_luasnip'
-    Plug 'anuvyklack/pretty-fold.nvim', { 'for': 'markdown' }
+    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'folke/tokyonight.nvim'
+    " Plug 'anuvyklack/pretty-fold.nvim', { 'for': 'markdown' }
+    " Plug 'p00f/nvim-ts-rainbow'
     endif
 
 call plug#end()
 
-" lua require('marcusxavier.plugins.lsp')
+lua require('marcusxavier.plugins.lsp')
+" lua require('marcusxavier.plugins.coc')
 
+"LuaSnip file
+lua require('marcusxavier.plugins.luasnip')
 " Global Sets """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set syntax=off            " Enable syntax highlight
 set nu               " Enable line numbers
@@ -135,6 +142,7 @@ nmap <space>h :call LanguageClient#textDocument_definition()<cr>
 nmap <space>k :call LanguageClient#textDocument_codeAction()<cr>
 "nmap <space>l :call LanguageClient#handleCodeLensAction()<cr>
 
+nmap <leader><leader>r <cmd>source ~/.config/nvim/init.vim<cr>
 "
 " Themes """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists('+termguicolors')
@@ -167,7 +175,8 @@ let g:onedark_config = {
   \ },
 \ }
 
-colorscheme onedark
+" colorscheme onedark
+" colorscheme catppuccin
 
 "  syntax on
 "  set t_Co=256
@@ -175,10 +184,10 @@ colorscheme onedark
 "  colorscheme onehalfdark
 "  let g:airline_theme='onehalfdark'
 
-"if (has("nvim")) "Transparent background. Only for nvim
+" if (has("nvim")) "Transparent background. Only for nvim
 "    highlight Normal guibg=NONE ctermbg=NONE
 "    highlight EndOfBuffer guibg=NONE ctermbg=NONE
-"endif
+" endif
 
 " Remaps"""""""""
 lua require('marcusxavier.keybinds')
@@ -625,7 +634,7 @@ require'nvim-treesitter.configs'.setup {
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = {'rkt'},
   },
 
   indent = {
@@ -655,6 +664,23 @@ EOF
 " lua vim.api.nvim_set_hl(0, "TSPunctDelimiter", { fg = "#888D97" })
 
 lua << EOF
+require'colorizer'.setup({
+  '*'; -- Highlight all files, but customize some others.
+  css = { rgb_fn = true; names = true; }; -- Enable parsing rgb(...) functions in css.
+  vue = { names = true; }; -- Enable parsing rgb(...) functions in css.
+  },
+  { names = false }
+)
+
+require("tokyonight").setup({
+    transparent = true,
+       styles = {
+       sidebars = "transparent",
+       floats = "transparent",
+    }
+})
+
+
 require('Comment').setup(
 {
     toggler = {
@@ -690,6 +716,8 @@ require('Comment').setup(
 
 EOF
 end
+
+colorscheme tokyonight-night
 
 "---------------------------------Fold configuration
 set foldtext=CustomText()
