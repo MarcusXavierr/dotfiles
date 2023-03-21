@@ -11,8 +11,8 @@ local function keymap_lsp(client)
     map('n', '<space>dk', vim.diagnostic.goto_prev, {buffer=0})
     map('n', '<space>df', vim.diagnostic.open_float, {buffer=0})
     map('n', '<space>r', vim.lsp.buf.rename, {buffer=0})
-    map('n', '<space>ac', vim.lsp.buf.code_action, {buffer=0})
-    map('v', '<space>ar', vim.lsp.buf.range_code_action, {buffer=0})
+    map('n', '<space>a', vim.lsp.buf.code_action, {buffer=0})
+    map('v', '<space>a', vim.lsp.buf.range_code_action, {buffer=0})
 end
 
 require'lspconfig'.gopls.setup{
