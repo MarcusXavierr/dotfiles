@@ -17,7 +17,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
 Plug 'rmagatti/auto-session'
 Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'OmniSharp/omnisharp-vim'
@@ -95,6 +96,7 @@ autocmd Filetype vue setl shiftwidth=2
 autocmd Filetype javascript,typescript setl shiftwidth=2
 autocmd Filetype html,javascriptreact,typescriptreact setl shiftwidth=2
 autocmd Filetype css,json setl shiftwidth=2
+" autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
 " autocmd FileType markdown setlocal foldmethod=marker foldexpr=0
 
 let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
@@ -167,6 +169,7 @@ let g:airline_theme = 'sonokai'
 
 let g:onedark_config = {
   \ 'style': 'darker',
+  \ 'transparent': v:false,
   \ 'ending_tildes': v:true,
   \ 'diagnostics': {
     \ 'darker': v:false,
@@ -407,8 +410,8 @@ lua <<EOF
 require('neoscroll').setup()
 local t = {}
 -- Syntax: t[keys] = {function, {function arguments}}
--- t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '200'}}
--- t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '200'}}
+t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '200'}}
+t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '200'}}
 
 t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '400'}}
 t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '400'}}
