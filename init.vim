@@ -426,17 +426,20 @@ lua << EOF
 require'colorizer'.setup({
   '*'; -- Highlight all files, but customize some others.
   css = { rgb_fn = true; names = true; }; -- Enable parsing rgb(...) functions in css.
+  scss = { rgb_fn = true; names = true; hsl_fn = true}; -- Enable parsing rgb(...) functions in css.
   vue = { names = true; }; -- Enable parsing rgb(...) functions in css.
   },
   { names = false }
 )
 
 require("tokyonight").setup({
-    transparent = true,
+    style = "storm",
+    terminal_colors = true,
+    transparent = false,
        styles = {
-       sidebars = "transparent",
-       floats = "transparent",
-    }
+       -- sidebars = "transparent",
+       -- floats = "transparent",
+    },
 })
 
 
@@ -476,7 +479,7 @@ require('Comment').setup(
 EOF
 end
 
-colorscheme tokyonight-night
+colorscheme tokyonight
 
 "---------------------------------Fold configuration
 set foldtext=CustomText()
