@@ -27,3 +27,5 @@ alias mergedev="merge_from_develop"
 alias cfc="checkout_from_code"
 # alias pj=pomodoro_jira
 alias pj='jira issue worklog add $(get_jira_code) "25m" --no-input'
+alias tinker='docker exec -it -u root appmax_php7_develop71 php artisan tinker'
+alias ctn='docker exec -it -u root appmax_php7_develop71 bash'
