@@ -35,7 +35,22 @@ require'lspconfig'.volar.setup{
     on_attach=keymap_lsp,
 }
 
+-- C/C++ LSP
+require'lspconfig'.clangd.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp,
+}
+
+local css_capabilities = require('cmp_nvim_lsp').default_capabilities()
+css_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require'lspconfig'.cssls.setup{
+    capabilities=css_capabilities,
+    on_attach=keymap_lsp,
+}
+
 require'lspconfig'.tailwindcss.setup{
+    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'blade'},
     capabilities=capabilities,
     on_attach = function(client)
         keymap_lsp(client)
