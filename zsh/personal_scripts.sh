@@ -35,3 +35,11 @@ function lgwt() {
     tmux new-session -s go -d -c ~/Projects/curso_golang_testes/again
     tmux attach-session -t go
 }
+
+function own_commits() {
+    git filter-branch --env-filter 'if [ "$GIT_AUTHOR_EMAIL" = "marcus.xavier@appmax.com.br" ]; then
+    GIT_AUTHOR_EMAIL=marcusxavierr123@gmail.com;
+    GIT_AUTHOR_NAME="Marcus Xavier";
+    GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL;
+    GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"; fi' -- --all
+}
