@@ -93,6 +93,17 @@ require'lspconfig'.sumneko_lua.setup {
   },
 }
 
+require'lspconfig'.eslint.setup({
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+
+    keymap_lsp(client)
+  end,
+})
+
 -- require('trouble').setup{
 --     signs = {
 --         -- icons / text used for a diagnostic
