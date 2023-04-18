@@ -37,5 +37,6 @@
   "diagnostic.virtualText": true,
   "diagnostic.checkCurrentLine": true,
   "hover.floatMaxHeight": 200,
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "suggest.noselect": true
 }
