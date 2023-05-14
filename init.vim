@@ -85,10 +85,11 @@ set updatecount=100
 filetype on          " Detect and set the filetype option and trigger the FileType Event
 filetype plugin on   " Load the plugin file for the file type, if any
 filetype indent on   " Load the indent file for the file type, if any
-set clipboard=unnamed
+"set clipboard=unnamed
+set clipboard=unnamedplus
 let g:blamer_enabled = 1
 let g:blamer_show_in_insert_modes = 0
-let g:blamer_delay = 500
+let g:blamer_delay = 300
 let NERDTreeShowHidden=1
 let g:rainbow_active = 1
 
