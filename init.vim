@@ -7,7 +7,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dense-analysis/ale'
 Plug 'vimwiki/vimwiki'
 " Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
-Plug 'neoclide/coc.nvim' , { 'commit' : '52032ad89121f16633f23672cec06f1039889879' }
+" Plug 'neoclide/coc.nvim' , { 'commit' : '52032ad89121f16633f23672cec06f1039889879' }
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim', {'for': ['html', 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact']}
@@ -17,11 +17,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
 Plug 'rmagatti/auto-session'
-Plug 'ActivityWatch/aw-watcher-vim'
-Plug 'OmniSharp/omnisharp-vim'
+" Plug 'ActivityWatch/aw-watcher-vim'
+" Plug 'OmniSharp/omnisharp-vim'
 " Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vim-test/vim-test'
 " Plug 'ap/vim-css-color'
@@ -234,8 +234,8 @@ nnoremap <silent><space>9 <cmd>lua require("bufferline").go_to_buffer(9, true)<c
 nnoremap <silent><space>$ <cmd>lua require("bufferline").go_to_buffer(-1, true)<cr>
 
 "Speller
-nnoremap sa zg
-nnoremap sc z=
+nnoremap sa zg " Mark word as correct
+nnoremap sc z= " Correct word
 
 "mkdx
 let g:mkdx#settings = { 'map': { 'prefix': '<space>' } }
@@ -425,7 +425,7 @@ EOF
 lua << EOF
 require'colorizer'.setup({
   '*'; -- Highlight all files, but customize some others.
-  css = { rgb_fn = true; names = true; }; -- Enable parsing rgb(...) functions in css.
+  css = { rgb_fn = true; names = true; hsl_fn = true}; -- Enable parsing rgb(...) functions in css.
   scss = { rgb_fn = true; names = true; hsl_fn = true}; -- Enable parsing rgb(...) functions in css.
   vue = { names = true; }; -- Enable parsing rgb(...) functions in css.
   },
@@ -437,8 +437,8 @@ require("tokyonight").setup({
     terminal_colors = true,
     transparent = false,
        styles = {
-       -- sidebars = "transparent",
-       -- floats = "transparent",
+       sidebars = "transparent",
+       floats = "transparent",
     },
 })
 
@@ -509,11 +509,32 @@ endfunction
 " ========================================================= VIM WIKI CONFIGURATION
 let wiki = {}
 let wiki.path = '~/tmp/wiki/'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'haskell': 'hs'}
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'haskell': 'hs', 'php': 'php'}
 let wiki.syntax = 'markdown'
 let wiki.ext = '.md'
-let g:vimwiki_list = [wiki]
+
+let interviews = {}
+let interviews.path = "~/tmp/wiki/interviews/"
+let interviews.syntax = 'markdown'
+let interviews.ext = '.md'
+
+" Now, configure vim wiki list
+let g:vimwiki_list = [wiki, interviews]
 " let g:vimwiki_folding = 'list'
 let g:vimwiki_listsyms = ' ○◐●✓'
 " =======================================================
+
+
+nmap <leader>d 0oo##jj:pu=strftime('%y-%m-%d %H:%M')0DkA jjpoo   ### Situation: <++>jjoo### Emotions: <++>jjoo### Thoughts: <++>jj
+nmap <leader>mc oocardjj:pu=strftime('%y-%m-%d')Dk$a_jjpv0
+
+"Zettelkasten boilerplate
+nmap <leader>z :pu=strftime('%Y-%m-%d %H:%M')DkijjpjiStatus: #ideajjooTags:jjopjoo# jj:pu=expand('%:t:r')Dklpjoo----# Referencesjj
+
+" nmap oi Ojjj
+" nmap op ojjk
+" nmap oo ojjhxi
+" nmap ty :bn<cr>
+" nmap tr :bp<cr>
+" nmap td :bd<cr>
 
