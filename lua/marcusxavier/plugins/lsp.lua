@@ -93,16 +93,22 @@ require'lspconfig'.sumneko_lua.setup {
   },
 }
 
-require'lspconfig'.eslint.setup({
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
+-- Python LSP
+require'lspconfig'.pyright.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp
+}
 
-    keymap_lsp(client)
-  end,
-})
+-- require'lspconfig'.eslint.setup({
+--   on_attach = function(client, bufnr)
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--
+--     keymap_lsp(client)
+--   end,
+-- })
 
 -- require('trouble').setup{
 --     signs = {
@@ -115,6 +121,7 @@ require'lspconfig'.eslint.setup({
 --     },
 --     use_diagnostic_signs = true
 -- }
+
 vim.opt.completeopt={"menu", "menuone", "noselect"} -- don't autocomplete first option automatically
 
 -- Set up nvim-cmp.
@@ -141,7 +148,8 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' }, -- For luasnip users.
-        { name = 'orgmode' }
+        { name = 'orgmode' },
+        { name = 'path' }
     }, {
             { name = 'buffer' },
         })
