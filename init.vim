@@ -96,6 +96,7 @@ set splitbelow       " Create the horizontal splits below
 set autoread         " Update vim after file update from outside
 set mouse=a          " Enable mouse support
 set updatecount=100
+set foldmethod=marker
 filetype on          " Detect and set the filetype option and trigger the FileType Event
 filetype plugin on   " Load the plugin file for the file type, if any
 filetype indent on   " Load the indent file for the file type, if any
@@ -112,9 +113,9 @@ autocmd Filetype javascript,typescript setl shiftwidth=2
 autocmd Filetype html,javascriptreact,typescriptreact setl shiftwidth=2
 autocmd Filetype css,json setl shiftwidth=2
 " autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
-" autocmd FileType markdown setlocal foldmethod=marker foldexpr=0
+autocmd VimEnter *.md set foldmethod=marker
 
-let g:auto_session_root_dir = '/Users/marcusxavier/.config/vim_sessions'
+let g:auto_session_root_dir = '/home/logcomex/.config/vim_sessions'
 let g:go_doc_keywordprg_enabled = 0
 
 " vim-test configuration
@@ -124,7 +125,8 @@ else
     let test#strategy = "floaterm"
 endif
 let test#php#runner='phpunit'
-let test#php#phpunit#executable=' docker-compose -f ./docker-compose.yml exec -u appmax -T php-fpm vendor/bin/phpunit'
+" let test#php#phpunit#executable=' docker-compose -f ./docker-compose.yml exec -u appmax -T php-fpm vendor/bin/phpunit'
+let test#php#phpunit#executable=' docker exec -it optimusPrimeApi vendor/bin/phpunit'
 
 
 "emmet
@@ -184,7 +186,7 @@ let g:airline_theme = 'sonokai'
 
 let g:onedark_config = {
   \ 'style': 'darker',
-  \ 'transparent': v:false,
+  \ 'transparent': v:true,
   \ 'ending_tildes': v:true,
   \ 'diagnostics': {
     \ 'darker': v:false,
@@ -533,11 +535,18 @@ let interviews.path = "~/tmp/wiki/interviews/"
 let interviews.syntax = 'markdown'
 let interviews.ext = '.md'
 
+let tasks = {}
+let tasks.path = "~/tmp/wiki/tasks/"
+let tasks.syntax = 'markdown'
+let tasks.ext = '.md'
+
 " Now, configure vim wiki list
-let g:vimwiki_list = [wiki, interviews]
+let g:vimwiki_list = [wiki, interviews, tasks]
 " let g:vimwiki_folding = 'list'
 let g:vimwiki_listsyms = ' ○◐●✓'
+let g:vimwiki_folding = 'custom'
 " =======================================================
+"
 
 
 nmap <leader>d 0oo##jj:pu=strftime('%y-%m-%d %H:%M')0DkA jjpoo   ### Situation: <++>jjoo### Emotions: <++>jjoo### Thoughts: <++>jj
@@ -553,3 +562,25 @@ nmap <leader>z :pu=strftime('%Y-%m-%d %H:%M')DkijjpjiStatus: #ideajjooTags:jjop
 " nmap tr :bp<cr>
 " nmap td :bd<cr>
 
+function ApplyMarksToVueFile()
+    silent! /<script/mark s
+    silent! /computed:/mark c
+    silent! /methods:/mark m
+    silent! /<style/mark u
+    silent! /watch:/mark w
+    silent! /data.*(/mark d
+endfunction
+
+command SetMarksVue call ApplyMarksToVueFile()
+nmap <space>v <cmd>SetMarksVue<cr>
+
+"temp nmap
+"
+nmap <space>x <cmd>!npx eslint --fix %<cr>
+" json expand
+nmap <space>jx <cmd>%! jq . <cr>
+" json retract
+nmap <space>jr <cmd>%! jq -r tostring <cr>
+
+"tmp mappings
+nmap <space>jt :!npx jest
