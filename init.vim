@@ -14,12 +14,12 @@ Plug 'mattn/emmet-vim', {'for': ['html', 'vue', 'javascript', 'typescript', 'jav
 Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround' " Using nvim-surround instead of vim-surround
 Plug 'tpope/vim-fugitive'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
-Plug 'rmagatti/auto-session'
+Plug 'rmagatti/auto-session', { 'commit': '39319bf7ad15a1881f180fa7c14bf6703775035e' }
 " Plug 'ActivityWatch/aw-watcher-vim'
 " Plug 'OmniSharp/omnisharp-vim'
 " Plug 'fatih/vim-go', {'for': 'go'}
@@ -43,15 +43,29 @@ if (has("nvim"))
     Plug 'hrsh7th/cmp-path'
     Plug 'L3MON4D3/LuaSnip'
     Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'hrsh7th/cmp-cmdline'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'folke/tokyonight.nvim'
+    Plug 'andrewferrier/debugprint.nvim'
+    Plug 'folke/todo-comments.nvim'
+    Plug 'rafamadriz/friendly-snippets'
+    Plug 'kylechui/nvim-surround'
     " Plug 'anuvyklack/pretty-fold.nvim', { 'for': 'markdown' }
     " Plug 'p00f/nvim-ts-rainbow'
+    " Go
+    "Plug 'ray-x/go.nvim', { 'for': 'go' }
+    "Plug 'ray-x/guihua.lua', { 'for': 'go' }
+    " tsserver alternative (too early)
+    "Plug 'pmizio/typescript-tools.nvim'
     endif
 
 call plug#end()
 
 lua require('marcusxavier.plugins.lsp')
+lua require('marcusxavier.plugins.debugprint')
+lua require('marcusxavier.plugins.todo')
+"lua require('go').setup()
+lua require('nvim-surround').setup()
 " lua require('marcusxavier.plugins.coc')
 
 "LuaSnip file
