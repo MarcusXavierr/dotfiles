@@ -3,6 +3,7 @@ local types = require "luasnip.util.types"
 
 
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/marcusxavier/snippets" })
+require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/lua/marcusxavier/vscode-snippets" })
 
 ls.config.set_config {
     history = true,

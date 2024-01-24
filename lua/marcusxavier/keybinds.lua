@@ -3,6 +3,7 @@ local function map(mode, key, value, silent)
   vim.keymap.set(mode, key, value, options)
 end
 
+
 -- Shortcuts for split navigation
 -- Do later
 vim.cmd('map <C-h> <C-w>h')
@@ -78,3 +79,5 @@ map({'n', 'v'}, '<space>m', ':VimwikiToggleListItem<cr>') -- Toggle (or create) 
 -- webdev utilitaries
 map('n', '<space>p', '<cmd>!prettier -w --tab-width=2 % <cr>')
 -- Diary cards
+--
+

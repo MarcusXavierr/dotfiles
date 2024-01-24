@@ -3,6 +3,7 @@ function kdo() {
     ps ax|grep -i docker|egrep -iv 'grep|com.docker.vmnetd'|awk '{print $1}'|xargs kill
 }
 
+#Appmax era {{{
 #macro to up work system
 function upsistema() {
     open -a Docker
@@ -30,7 +31,6 @@ function get_branch_name() {
     echo "$(git branch | grep "*" | awk '{print $2}')"
 }
 
-#macro to wait app.js to build and then commit my build
 function deploy_appjs() {
     lockFile="${1:-lockfile}"
     while [ -f "$lockFile" ];
@@ -51,23 +51,10 @@ function merge_from_develop() {
     git merge develop
 }
 
-function search_branch() {
-    branchCode=$1
-    echo "$(git branch | grep $branchCode | awk '{print $NF}')"
-}
 
 function checkout_from_code() {
     code=$1
     git checkout $(search_branch $code)
-}
-
-function workide() {
-    tmux split-pane -h
-    tmux last-pane
-    tmux split-pane -v
-    tmux new-window
-    tmux last-window
-    docker exec -it -u root appmax_php7_develop71 bash
 }
 
 # a function to set tracked time on jira
@@ -91,4 +78,45 @@ function solve_merge_app() {
     git checkout --theirs public/assets/js/app.js
     git add public/assets/js/app.js
     git commit
+}
+
+
+function search_branch() {
+    branchCode=$1
+    echo "$(git branch | grep $branchCode | awk '{print $NF}')"
+}
+
+function workide() {
+    tmux split-pane -h
+    tmux last-pane
+    tmux split-pane -v
+    tmux new-window
+    tmux last-window
+    docker exec -it -u root appmax_php7_develop71 bash
+}
+
+#}}}
+
+function upvpn() {
+    echo 'R7cbe5rCN4FYpVr8' | nmcli --ask con up id Marcus-Xavier
+}
+
+function setup_log() {
+    upvpn
+
+    echo "open pbi homol"
+    nohup open http://plataforma.homol.logcomex.io/signIn/ > /dev/null 2>&1&
+    sleep 4
+
+    echo "open jira"
+    nohup open https://logcomex.atlassian.net/jira/software/c/projects/LOG/boards/79 > /dev/null 2>&1&
+    sleep 3
+
+    echo "open lg"
+    echo 'marcus.xavier@logcomex.com' | xclip -selection c
+    nohup open https://login.lg.com.br/login/logcomex > /dev/null 2>&1&
+    sleep 4
+
+    echo "open pbi homol again"
+    nohup open http://plataforma.homol.logcomex.io/signIn/ > /dev/null 2>&1&
 }

@@ -43,3 +43,34 @@ function own_commits() {
     GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL;
     GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"; fi' -- --all
 }
+
+#compile and run
+function cnr() {
+    gcc "$1"
+    ./a.out
+}
+
+function startNodeProject() {
+    mkdir "$1" && cd "$1" && npm init -y && npm i typescript tsx @types/node -D && npm tsc —init
+}
+
+function genWeeklyWiki() {
+    # Get the current week number (considering the week starts on Sunday)
+    week=$(date +%U)
+
+    # Get the start (Sunday) and end (Saturday) days of the current week
+    start_day=$(date -d "$(date +%Y-%m-01) +$((($week - 1) * 7 + 1)) days" +%d-%b)
+    end_day=$(date -d "$(date +%Y-%m-01) +$((($week - 1) * 7 + 7)) days" +%d-%b)
+
+    # Create the directory name
+    directory_name=$(date +%Y)__${start_day}_${end_day}
+
+    # Create the directory
+    mkdir $directory_name
+
+    # Create index.md file inside the created directory
+    touch ./$directory_name/index.md
+
+    # Modify Home.md file in the current directory to add the link to index.md
+    sed -i "1i [Week $week | $start_day - $end_day](${directory_name}/index.md)" Home.md
+}

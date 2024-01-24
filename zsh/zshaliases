@@ -4,6 +4,8 @@ alias vz="cd ~/Projects/obsidian/Obsidian && zettelkasten"
 alias c=bat
 alias aic=aicommits
 alias t=tmux
+alias ta='tmux attach -t'
+alias vim=nvim
 #
 #alias to grep history
 alias h="history | grep"
@@ -15,7 +17,7 @@ if [ -x "$(command -v colorls)" ]; then
 fi
 
 #anki
-alias ahd="anki-helper add -d"
+alias ahd="anki-helper add "
 alias ah=anki-helper
 #
 #exercism
@@ -25,7 +27,19 @@ alias es="exercism submit"
 alias deploy="deploy_appjs"
 alias mergedev="merge_from_develop"
 alias cfc="checkout_from_code"
+alias n12="nvm use 12"
+alias n16="nvm use 16"
+alias n18="nvm use 18"
+alias u="upvpn"
+
 # alias pj=pomodoro_jira
 alias pj='jira issue worklog add $(get_jira_code) "25m" --no-input'
 alias tinker='docker exec -it -u root appmax_php7_develop71 php artisan tinker'
 alias ctn='docker exec -it -u root appmax_php7_develop71 bash'
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+
+# helpers
+# alias cnr=compile_n_runc
+
+alias teste='cd ~/tmp/testing_projects/'
+alias open_pr=gh pr view --web

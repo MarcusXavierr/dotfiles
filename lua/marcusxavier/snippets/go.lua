@@ -9,9 +9,11 @@ local f = ls.function_node
 local sn = ls.snippet_node
 
 local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
-local snippets, autosnippets = {}, {} --}}}
+local snippets, autosnippets = {}, {}
+--}}}
 
 
 local f = s("f", fmt([[
@@ -105,4 +107,13 @@ type {} {} {{
     }))
 
 table.insert(snippets, tp)
+
+local ew = s("ew", fmt([[
+   errors.Wrap(err, "{}")
+]], {
+    i(1, "function name")
+    }))
+
+table.insert(snippets, ew)
 return snippets, autosnippets
+
