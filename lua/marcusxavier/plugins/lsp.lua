@@ -27,15 +27,32 @@ require'lspconfig'.tsserver.setup{
     on_attach=keymap_lsp,
 }
 
-require'lspconfig'.intelephense.setup{
+-- require'lspconfig'.intelephense.setup{
+--     capabilities=capabilities,
+--     on_attach=keymap_lsp,
+-- }
+
+require'lspconfig'.phpactor.setup{
     capabilities=capabilities,
     on_attach=keymap_lsp,
 }
 
-require'lspconfig'.volar.setup{
+-- HACK: Docker config
+require'lspconfig'.docker_compose_language_service.setup{
     capabilities=capabilities,
-    on_attach=keymap_lsp,
+    on_attach=keymap_lsp
 }
+
+require'lspconfig'.dockerls.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp
+}
+-- HACK: End docker config
+
+-- require'lspconfig'.volar.setup{
+--     capabilities=capabilities,
+--     on_attach=keymap_lsp,
+-- }
 
 -- require'lspconfig'.vuels.setup{
 --     capabilities=capabilities,
@@ -99,31 +116,6 @@ require'lspconfig'.lua_ls.setup {
     return true
   end
 }
-
--- require'lspconfig'.sumneko_lua.setup {
---   capabilities=capabilities,
---   on_attach=keymap_lsp,
---   settings = {
---     Lua = {
---       runtime = {
---         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---         version = 'LuaJIT',
---       },
---       diagnostics = {
---         -- Get the language server to recognize the `vim` global
---         globals = {'vim'},
---       },
---       workspace = {
---         -- Make the server aware of Neovim runtime files
---         library = vim.api.nvim_get_runtime_file("", true),
---       },
---       -- Do not send telemetry data containing a randomized but unique identifier
---       telemetry = {
---         enable = false,
---       },
---     },
---   },
--- }
 
 -- Python LSP
 require'lspconfig'.pyright.setup{
