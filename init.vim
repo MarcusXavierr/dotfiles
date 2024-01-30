@@ -50,11 +50,8 @@ if (has("nvim"))
     Plug 'folke/todo-comments.nvim'
     Plug 'rafamadriz/friendly-snippets'
     Plug 'kylechui/nvim-surround'
-    " Plug 'anuvyklack/pretty-fold.nvim', { 'for': 'markdown' }
-    " Plug 'p00f/nvim-ts-rainbow'
-    " Go
-    "Plug 'ray-x/go.nvim', { 'for': 'go' }
-    "Plug 'ray-x/guihua.lua', { 'for': 'go' }
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
     " tsserver alternative (too early)
     "Plug 'pmizio/typescript-tools.nvim'
     endif
