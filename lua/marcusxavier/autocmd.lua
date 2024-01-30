@@ -1,3 +1,4 @@
+-- INFO:  Fix and format go code on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = { "*.go" },
   callback = function()
@@ -23,4 +24,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			end
 		end
 	end,
+})
+
+-- INFO: Replace ale's trim whistespace feature
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = {"*"},
+    callback = function()
+      local save_cursor = vim.fn.getpos(".")
+      pcall(function() vim.cmd [[%s/\s\+$//e]] end)
+      vim.fn.setpos(".", save_cursor)
+    end,
 })
