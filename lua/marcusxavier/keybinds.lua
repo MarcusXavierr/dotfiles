@@ -109,3 +109,13 @@ map('n', '<space>9', bufferline(9))
 -- map('n', '<space>7', '<cmd>lua require("bufferline").go_to_buffer(7, true)<cr>')
 -- map('n', '<space>8', '<cmd>lua require("bufferline").go_to_buffer(8, true)<cr>')
 -- map('n', '<space>9', '<cmd>lua require("bufferline").go_to_buffer(9, true)<cr>')
+
+
+-- INFO: Telescope stuff
+local builtin = require('telescope.builtin')
+map('n', '<space>ff', builtin.find_files)
+map('n', '<space>fg', builtin.live_grep)
+map('n', '<space>fb', builtin.buffers)
+map('n', '<space>of', builtin.oldfiles)
+map('n', '<space>fh', builtin.help_tags)
+map('n', '<space>fr', builtin.resume)

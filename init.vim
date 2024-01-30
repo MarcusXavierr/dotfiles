@@ -277,20 +277,6 @@ let g:ale_fix_on_save = 1
 
 
 
-" NVIM"""""""""""""""""""
-if (has("nvim"))
-
-    " Telescope """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    nnoremap <space>ff <cmd>Telescope find_files<cr>
-    nnoremap <space>fg <cmd>Telescope live_grep<cr>
-    nnoremap <space>fb <cmd>Telescope buffers<cr>
-    nnoremap <space>of <cmd>Telescope oldfiles<cr>
-    nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-    nnoremap <space>fr <cmd>Telescope resume<cr>
-endif
-
-
-
 "TREESITTER """"""""""""""""""""""""""""""
 if has("nvim-0.5.0")
 
