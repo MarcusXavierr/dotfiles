@@ -63,8 +63,6 @@ lua require('marcusxavier.plugins.telescope')
 " INFO: A last but not least, others plugins configurations
 lua require('marcusxavier.plugins.others')
 
-
-
 " Global Sets """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set syntax=off            " Enable syntax highlight
 set nu               " Enable line numbers
@@ -95,7 +93,7 @@ set foldmethod=marker
 filetype on          " Detect and set the filetype option and trigger the FileType Event
 filetype plugin on   " Load the plugin file for the file type, if any
 filetype indent on   " Load the indent file for the file type, if any
-"set clipboard=unnamed
+"set clipboard=unnamed "This works on macos only
 set clipboard=unnamedplus
 let g:blamer_enabled = 1
 let g:blamer_show_in_insert_modes = 0
@@ -107,7 +105,6 @@ autocmd Filetype vue setl shiftwidth=2
 autocmd Filetype javascript,typescript setl shiftwidth=2
 autocmd Filetype html,javascriptreact,typescriptreact setl shiftwidth=2
 autocmd Filetype css,json setl shiftwidth=2
-" autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
 autocmd VimEnter *.md set foldmethod=marker
 
 let g:auto_session_root_dir = '/home/marcus/.config/vim_sessions'
@@ -127,18 +124,6 @@ let test#php#phpunit#executable=' docker exec -it optimusPrimeApi vendor/bin/php
 "emmet
 let g:user_emmet_leader_key=','
 let g:user_emmet_mode='nv'
-
-autocmd VimEnter * call s:setup_bufferline()
-function! s:setup_bufferline() abort
-lua<<EOF
-require('bufferline').setup {
-    options= {
-            max_name_length = 30,
-            tab_size = 15
-        }
-    }
-EOF
-endfunction
 
 " Prettier for PHP
 function PrettierPhpCursor()
@@ -233,17 +218,6 @@ let g:floatterm_width = 0.9
 let g:floaterm_keymap_hide = '[fc'
 let g:floaterm_keymap_toggle = '[fd'
 "
-
-nnoremap <silent><space>1 <cmd>lua require("bufferline").go_to_buffer(1, true)<cr>
-nnoremap <silent><space>2 <cmd>lua require("bufferline").go_to_buffer(2, true)<cr>
-nnoremap <silent><space>3 <cmd>lua require("bufferline").go_to_buffer(3, true)<cr>
-nnoremap <silent><space>4 <cmd>lua require("bufferline").go_to_buffer(4, true)<cr>
-nnoremap <silent><space>5 <cmd>lua require("bufferline").go_to_buffer(5, true)<cr>
-nnoremap <silent><space>6 <cmd>lua require("bufferline").go_to_buffer(6, true)<cr>
-nnoremap <silent><space>7 <cmd>lua require("bufferline").go_to_buffer(7, true)<cr>
-nnoremap <silent><space>8 <cmd>lua require("bufferline").go_to_buffer(8, true)<cr>
-nnoremap <silent><space>9 <cmd>lua require("bufferline").go_to_buffer(9, true)<cr>
-nnoremap <silent><space>$ <cmd>lua require("bufferline").go_to_buffer(-1, true)<cr>
 
 "Speller
 nnoremap sa zg " Mark word as correct
