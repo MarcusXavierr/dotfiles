@@ -299,7 +299,6 @@ require("tokyonight").setup({
        floats = "transparent",
     },
 })
-
 EOF
 end
 
@@ -380,14 +379,6 @@ endfunction
 
 command SetMarksVue call ApplyMarksToVueFile()
 nmap <space>v <cmd>SetMarksVue<cr>
-
-"temp nmap
-"
-nmap <space>x <cmd>!npx eslint --fix %<cr>
-" json expand
-nmap <space>jx <cmd>%! jq . <cr>
-" json retract
-nmap <space>jr <cmd>%! jq -r tostring <cr>
 
 "tmp mappings
 nmap <space>jt :!npx jest

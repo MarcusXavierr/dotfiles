@@ -79,7 +79,15 @@ map({'n', 'v'}, '<space>m', ':VimwikiToggleListItem<cr>') -- Toggle (or create) 
 -- webdev utilitaries
 map('n', '<space>p', '<cmd>!prettier -w --tab-width=2 % <cr>')
 -- Diary cards
---
+
+-- INFO: Telescope stuff
+local builtin = require('telescope.builtin')
+map('n', '<space>ff', builtin.find_files)
+map('n', '<space>fg', builtin.live_grep)
+map('n', '<space>fb', builtin.buffers)
+map('n', '<space>of', builtin.oldfiles)
+map('n', '<space>fh', builtin.help_tags)
+map('n', '<space>fr', builtin.resume)
 
 -- INFO: Buffeline
 local b = require("bufferline")
@@ -111,11 +119,7 @@ map('n', '<space>9', bufferline(9))
 -- map('n', '<space>9', '<cmd>lua require("bufferline").go_to_buffer(9, true)<cr>')
 
 
--- INFO: Telescope stuff
-local builtin = require('telescope.builtin')
-map('n', '<space>ff', builtin.find_files)
-map('n', '<space>fg', builtin.live_grep)
-map('n', '<space>fb', builtin.buffers)
-map('n', '<space>of', builtin.oldfiles)
-map('n', '<space>fh', builtin.help_tags)
-map('n', '<space>fr', builtin.resume)
+-- INFO:
+map('n', '<space>x', '<cmd>!npx eslint --fix %<cr>') -- HACK: run eslint
+map('n', '<space>jx', '<cmd>%! jq . <cr>') -- HACK: format json
+map('n', '<space>x', '<cmd>%! jq -r tostring <cr>') -- HACK: minimize JSON
