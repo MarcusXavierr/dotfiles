@@ -4,28 +4,21 @@ Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale', {'for': ['html', 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact']}
 Plug 'vimwiki/vimwiki'
-" Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
-" Plug 'neoclide/coc.nvim' , { 'commit' : '52032ad89121f16633f23672cec06f1039889879' }
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim', {'for': ['html', 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact']}
 Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
 Plug 'airblade/vim-gitgutter'
-" Plug 'tpope/vim-surround' " Using nvim-surround instead of vim-surround
 Plug 'tpope/vim-fugitive'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
 Plug 'rmagatti/auto-session', { 'commit': '39319bf7ad15a1881f180fa7c14bf6703775035e' }
 " Plug 'ActivityWatch/aw-watcher-vim'
-" Plug 'OmniSharp/omnisharp-vim'
-" Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vim-test/vim-test'
-" Plug 'ap/vim-css-color'
-" Plug 'christoomey/vim-tmux-navigator'
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -58,15 +51,20 @@ if (has("nvim"))
 
 call plug#end()
 
+" INFO: Plugin configurations
 lua require('marcusxavier.plugins.lsp')
 lua require('marcusxavier.plugins.debugprint')
 lua require('marcusxavier.plugins.todo')
-"lua require('go').setup()
-lua require('nvim-surround').setup()
-" lua require('marcusxavier.plugins.coc')
-
-"LuaSnip file
+lua require('marcusxavier.plugins.treesitter.index')
 lua require('marcusxavier.plugins.luasnip')
+lua require('marcusxavier.plugins.comment_nvim')
+lua require('marcusxavier.plugins.telescope')
+
+" INFO: A last but not least, others plugins configurations
+lua require('marcusxavier.plugins.others')
+
+
+
 " Global Sets """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set syntax=off            " Enable syntax highlight
 set nu               " Enable line numbers
@@ -112,7 +110,7 @@ autocmd Filetype css,json setl shiftwidth=2
 " autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
 autocmd VimEnter *.md set foldmethod=marker
 
-let g:auto_session_root_dir = '/home/logcomex/.config/vim_sessions'
+let g:auto_session_root_dir = '/home/marcus/.config/vim_sessions'
 let g:go_doc_keywordprg_enabled = 0
 
 " vim-test configuration
@@ -319,122 +317,8 @@ endif
 
 
 
-
-lua <<EOF
-local actions = require('telescope.actions')
-
-require('telescope').setup{
-    defaults = {
-        file_ignore_patterns = {'vendor', 'public', 'node_modules'},
-        width=0.9,
-        use_less=true,
-        results_width=0.8,
-        mappings = {
-            n = {
-               ['q'] = actions.close,
-               ['dd'] = actions.delete_buffer,
-            }
-        }
-    },
-     extensions = {
-        fzf = {
-          fuzzy = true,                    -- false will only do exact matching
-          override_generic_sorter = true,  -- override the generic sorter
-          override_file_sorter = true,     -- override the file sorter
-          case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                           -- the default case_mode is "smart_case"
-        }
-      },
-    pickers = {
-        buffers = {
-         path_display = {'tail'},
-        }
-      }
-}
-
-require('telescope').load_extension('fzf')
-EOF
-
 "TREESITTER """"""""""""""""""""""""""""""
 if has("nvim-0.5.0")
-"nvim-treesitter configuration
-
-
-
-lua << EOF
-
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "vue", "javascript", "php" },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  auto_install = true,
-
-  -- List of parsers to ignore installing (for "all")
-  ignore_install = {},
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    disable = {'html', 'css'},
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = {'rkt'},
-  },
-
-  indent = {
-    enable = true,
-    disable = {'vue', 'js', 'html'}
-  },
-  rainbow = {
-      enable = {'rkt'},
-    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-    max_file_lines = nil, -- Do not enable for files with more than n lines, int
- -- colors = {
- --      "#68a0b0",
- --      "#946EaD",
- --      "#c7aA6D",
- --    },
-    -- colors = {}, -- table of hex strings
-    termcolors = {
-      "Gold",
-      "Orchid",
-      "DodgerBlue",
-      "Cornsilk",
-      "Salmon",
-      "LawnGreen",
-    } -- table of colour name strings
-  }
-}
-EOF
-
-lua <<EOF
-require('neoscroll').setup()
-local t = {}
--- Syntax: t[keys] = {function, {function arguments}}
-t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '200'}}
-t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '200'}}
-
-t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '400'}}
-t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '400'}}
-
-require('neoscroll.config').set_mappings(t)
-EOF
-
-" lua vim.api.nvim_set_hl(0, "TSPunctBracket", { fg = "#888D97" })
-" lua vim.api.nvim_set_hl(0, "TSPunctDelimiter", { fg = "#888D97" })
 
 lua << EOF
 require'colorizer'.setup({
@@ -455,40 +339,6 @@ require("tokyonight").setup({
        floats = "transparent",
     },
 })
-
-
-require('Comment').setup(
-{
-    toggler = {
-        ---Line-comment toggle keymap
-        line = 'gcc',
-        ---Block-comment toggle keymap
-        block = '<space>cc',
-    },
-    ---LHS of operator-pending mappings in NORMAL and VISUAL mode
-    opleader = {
-        ---Line-comment keymap
-        line = 'gc',
-        ---Block-comment keymap
-        block = '<space>c',
-    },
-    ---LHS of extra mappings
-    extra = {
-        ---Add comment on the line above
-        above = 'gcO',
-        ---Add comment on the line below
-        below = 'gco',
-        ---Add comment at the end of line
-        eol = 'gcA',
-    },
-    ---Enable keybindings
-    ---NOTE: If given `false` then the plugin won't create any mappings
-    mappings = {
-        ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
-        basic = true,
-    },
-}
-)
 
 EOF
 end
