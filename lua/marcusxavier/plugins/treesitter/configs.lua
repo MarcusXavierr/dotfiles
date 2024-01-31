@@ -46,7 +46,7 @@ require'nvim-treesitter.configs'.setup {
     } -- table of colour name strings
   },
     incremental_selection = {
-        enable=true,
+        enable=false, -- Set to false until a find a good keybind for this
         keymaps={
             init_selection="<C-l>",
             node_incremental="<C-l>",
