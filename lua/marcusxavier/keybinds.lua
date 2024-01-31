@@ -77,7 +77,7 @@ map({'n', 'v'}, '<space>m', ':VimwikiToggleListItem<cr>') -- Toggle (or create) 
 -- map('n', '<space>wm', ':norm gg0/----V/----:g/    =Äkb-/norm zzfkÄkbÄkbÄkbÄkbzfksh<cr>')
 
 -- webdev utilitaries
-map('n', '<space>p', '<cmd>!prettier -w --tab-width=2 % <cr>')
+-- map('n', '<space>p', '<cmd>!prettier -w --tab-width=2 % <cr>')
 -- Diary cards
 
 -- INFO: Telescope stuff

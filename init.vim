@@ -45,6 +45,10 @@ if (has("nvim"))
     Plug 'kylechui/nvim-surround'
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'rcarriga/nvim-dap-ui'
     " tsserver alternative (too early)
     "Plug 'pmizio/typescript-tools.nvim'
     endif
@@ -232,7 +236,7 @@ nnoremap <silent><space>i `^
 map sd :mksession! ~/vim_session <cr>
 
 "PrettierPhp
-nnoremap <leader>p :PrettierPhp<CR>
+" nnoremap <leader>p :PrettierPhp<CR>
 nmap <space>e :NvimTreeToggle<cr>
 lua require("nvim-tree").setup()
 "PHP_CODESNIFFER
