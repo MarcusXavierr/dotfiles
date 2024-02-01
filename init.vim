@@ -13,7 +13,6 @@ Plug 'voldikss/vim-floaterm'
 Plug 'APZelos/blamer.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
 Plug 'rmagatti/auto-session', { 'commit': '39319bf7ad15a1881f180fa7c14bf6703775035e' }
@@ -27,7 +26,6 @@ if (has("nvim"))
     Plug 'karb94/neoscroll.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'numToStr/Comment.nvim'
-    Plug 'navarasu/onedark.nvim'
     Plug 'nvim-tree/nvim-tree.lua'
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-cmp'
@@ -38,7 +36,6 @@ if (has("nvim"))
     Plug 'saadparwaiz1/cmp_luasnip'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'folke/tokyonight.nvim'
     Plug 'andrewferrier/debugprint.nvim'
     Plug 'folke/todo-comments.nvim'
     Plug 'rafamadriz/friendly-snippets'
@@ -46,11 +43,24 @@ if (has("nvim"))
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-
-    Plug 'mfussenegger/nvim-dap'
-    Plug 'rcarriga/nvim-dap-ui'
+    Plug 'folke/neodev.nvim'
     " tsserver alternative (too early)
     "Plug 'pmizio/typescript-tools.nvim'
+
+    "Debugging
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'leoluz/nvim-dap-go'
+    Plug 'rcarriga/nvim-dap-ui'
+    Plug 'theHamsta/nvim-dap-virtual-text'
+    Plug 'nvim-telescope/telescope-dap.nvim'
+
+    " Themes
+    Plug 'catppuccin/nvim'
+    Plug 'folke/tokyonight.nvim'
+    Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'navarasu/onedark.nvim'
+    Plug 'EdenEast/nightfox.nvim'
+    Plug 'maxmx03/fluoromachine.nvim'
     endif
 
 call plug#end()
