@@ -1,4 +1,7 @@
 require('marcusxavier.plugins.mason')
+require("neodev").setup({
+    library = { plugins = { "nvim-dap-ui" }, types = true }
+})
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local map = vim.keymap.set
