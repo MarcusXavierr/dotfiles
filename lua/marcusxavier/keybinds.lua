@@ -122,4 +122,5 @@ map('n', '<space>9', bufferline(9))
 -- INFO:
 map('n', '<space>x', '<cmd>!npx eslint --fix %<cr>') -- HACK: run eslint
 map('n', '<space>jx', '<cmd>%! jq . <cr>') -- HACK: format json
-map('n', '<space>x', '<cmd>%! jq -r tostring <cr>') -- HACK: minimize JSON
+map('n', '<space>jm', '<cmd>%! jq -r tostring <cr>') -- HACK: minimize JSON
+map('n', '<space>jp', '<cmd>!./vendor/bin/phpcbf --standard=PSR12 --encoding=utf-8 -p --report=code --colors % <cr>')
