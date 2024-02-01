@@ -73,9 +73,14 @@ lua require('marcusxavier.plugins.treesitter.index')
 lua require('marcusxavier.plugins.luasnip')
 lua require('marcusxavier.plugins.comment_nvim')
 lua require('marcusxavier.plugins.telescope')
-
 " INFO: A last but not least, others plugins configurations
 lua require('marcusxavier.plugins.others')
+
+" INFO: Other things
+lua require('marcusxavier.themes.index')
+lua require('marcusxavier.keybinds')
+lua require('marcusxavier.dap.index')
+
 
 " Global Sets """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set syntax=off            " Enable syntax highlight
@@ -178,25 +183,7 @@ let g:airline_theme = 'sonokai'
 
 " colorscheme dracula
 
-let g:onedark_config = {
-  \ 'style': 'darker',
-  \ 'transparent': v:true,
-  \ 'ending_tildes': v:true,
-  \ 'diagnostics': {
-    \ 'darker': v:false,
-    \ 'background': v:true,
-    \ 'undercurl': v:true,
-  \ },
-\ }
-
-" colorscheme onedark
 " colorscheme catppuccin
-
-"  syntax on
-"  set t_Co=256
-"  set cursorline
-"  colorscheme onehalfdark
-"  let g:airline_theme='onehalfdark'
 
 " if (has("nvim")) "Transparent background. Only for nvim
 "    highlight Normal guibg=NONE ctermbg=NONE
@@ -204,7 +191,6 @@ let g:onedark_config = {
 " endif
 
 " Remaps"""""""""
-lua require('marcusxavier.keybinds')
 
 " Use space as leader"""""""
 "  let mapleader=" "
@@ -303,20 +289,8 @@ require'colorizer'.setup({
   },
   { names = false }
 )
-
-require("tokyonight").setup({
-    style = "storm",
-    terminal_colors = true,
-    transparent = false,
-       styles = {
-       sidebars = "transparent",
-       floats = "transparent",
-    },
-})
 EOF
 end
-
-colorscheme tokyonight
 
 "---------------------------------Fold configuration
 set foldtext=CustomText()
@@ -360,8 +334,13 @@ let tasks.path = "~/tmp/wiki/tasks/"
 let tasks.syntax = 'markdown'
 let tasks.ext = '.md'
 
+let work_tasks = {}
+let work_tasks.path = "~/Projects/obsidian/Work/Tasks/"
+let work_tasks.syntax = 'markdown'
+let work_tasks.ext = '.md'
+
 " Now, configure vim wiki list
-let g:vimwiki_list = [wiki, interviews, tasks]
+let g:vimwiki_list = [wiki, interviews, tasks, work_tasks]
 " let g:vimwiki_folding = 'list'
 let g:vimwiki_listsyms = ' ○◐●✓'
 let g:vimwiki_folding = 'custom'
