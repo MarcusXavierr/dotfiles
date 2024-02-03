@@ -120,3 +120,7 @@ function setup_log() {
     echo "open pbi homol again"
     nohup open http://plataforma.homol.logcomex.io/signIn/ > /dev/null 2>&1&
 }
+
+function start_task() {
+    git checkout homol && git pull && git checkout -b "feature/${1}-homol"
+}

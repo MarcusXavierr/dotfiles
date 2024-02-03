@@ -20,7 +20,8 @@ function ide() {
 
 # organize tmux horizontally
 function ideh() {
-    tmux split-pane -v -p 30
+    tmux split-pane -v
+    tmux resize-pane -y 12 # set the lower panel height to 12 cells
     tmux split-pane -h
     tmux new-window
 }
