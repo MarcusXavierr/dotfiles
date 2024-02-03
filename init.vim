@@ -53,6 +53,7 @@ if (has("nvim"))
     Plug 'rcarriga/nvim-dap-ui'
     Plug 'theHamsta/nvim-dap-virtual-text'
     Plug 'nvim-telescope/telescope-dap.nvim'
+    Plug 'Weissle/persistent-breakpoints.nvim'
 
     " Themes
     Plug 'catppuccin/nvim'
@@ -375,3 +376,4 @@ nmap <space>v <cmd>SetMarksVue<cr>
 
 "tmp mappings
 nmap <space>jt :!npx jest
+command! DapRunToCursor lua require('dap').run_to_cursor()

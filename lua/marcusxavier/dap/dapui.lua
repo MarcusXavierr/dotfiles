@@ -46,11 +46,15 @@ require("dapui").setup({
         elements = {
             {
                 id = "stacks",
-                size = 0.25
+                size = 0.20
             },
             {
                 id = "scopes",
-                size = 0.75
+                size = 0.70
+            },
+            {
+                id = "breakpoints",
+                size = 0.1
             }
         },
         position = "bottom",
