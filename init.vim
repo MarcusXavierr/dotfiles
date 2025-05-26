@@ -190,7 +190,9 @@ let g:dracula_italic = 1
 let g:dracula_colorterm = 1
 let g:dracula_bold = 1
 let g:dracula_full_special_attrs_support = 1
-let g:airline_theme = 'sonokai'
+let g:airline_theme = 'catppuccin'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 
 " colorscheme dracula
 
@@ -354,10 +356,23 @@ let work_tasks.ext = '.md'
 let g:vimwiki_list = [wiki, interviews, tasks, work_tasks]
 " let g:vimwiki_folding = 'list'
 let g:vimwiki_listsyms = ' ○◐●✓'
+let g:vimwiki_listsyms = ' ○◐●x'
 let g:vimwiki_folding = 'custom'
 " =======================================================
 "
-
+if exists("g:neovide")
+" Notebook
+" lua vim.o.guifont = "Jetbrains Mono:h9"
+" Desktop
+lua vim.o.guifont = "Jetbrains Mono:h14"
+" lua vim.g.gui_font_default_size = 12
+" lua vim.o.guifont = "Source Code Pro:h14.5"
+" lua vim.o.guifont = "Fira Code:h14.5"
+" lua vim.g.neovide_transparency = 0.98
+lua vim.g.neovide_cursor_animation_length = 0
+let g:neovide_scroll_animation_length = 0.4
+let g:neovide_cursor_animate_command_line = v:false
+endif
 
 nmap <leader>d 0oo##jj:pu=strftime('%y-%m-%d %H:%M')0DkA jjpoo   ### Situation: <++>jjoo### Emotions: <++>jjoo### Thoughts: <++>jj
 nmap <leader>mc oocardjj:pu=strftime('%y-%m-%d')Dk$a_jjpv0
