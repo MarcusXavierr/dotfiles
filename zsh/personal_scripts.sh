@@ -38,8 +38,8 @@ function lgwt() {
 }
 
 function own_commits() {
-    git filter-branch --env-filter 'if [ "$GIT_AUTHOR_EMAIL" = "marcus.xavier@appmax.com.br" ]; then
-    GIT_AUTHOR_EMAIL=marcusxavierr123@gmail.com;
+    git filter-branch --env-filter 'if [ "$GIT_AUTHOR_EMAIL" = "$1" ]; then
+    GIT_AUTHOR_EMAIL="$2";
     GIT_AUTHOR_NAME="Marcus Xavier";
     GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL;
     GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"; fi' -- --all
