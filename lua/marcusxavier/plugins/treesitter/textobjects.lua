@@ -38,19 +38,19 @@ require("nvim-treesitter.configs").setup({
             ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
           },
         },
-        -- swap = { -- I mean, this isn't working as expected
-        --   enable = true,
-        --   swap_next = {
-        --     ["<space>na"] = "@parameter.inner", -- swap parameters/argument with next
-        --     ["<space>n:"] = "@property.outer", -- swap object property with next
-        --     ["<space>nf"] = "@function.outer", -- swap function with next
-        --   },
-        --   swap_previous = {
-        --     ["<space>pa"] = "@parameter.inner", -- swap parameters/argument with prev
-        --     ["<space>p:"] = "@property.outer", -- swap object property with prev
-        --     ["<space>pf"] = "@function.outer", -- swap function with previous
-        --   },
-        -- },
+        swap = { -- Cool shit
+          enable = true,
+          swap_next = {
+            ["<space>na"] = "@parameter.inner", -- swap parameters/argument with next
+            ["<space>no"] = "@property.outer", -- swap object property with next
+            ["<space>nf"] = "@function.outer", -- swap function with next
+          },
+          swap_previous = {
+            ["<space>pa"] = "@parameter.inner", -- swap parameters/argument with prev
+            ["<space>po"] = "@property.outer", -- swap object property with prev
+            ["<space>pf"] = "@function.outer", -- swap function with previous
+          },
+        },
         move = {
           enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
