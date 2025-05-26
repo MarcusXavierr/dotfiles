@@ -35,3 +35,11 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       vim.fn.setpos(".", save_cursor)
     end,
 })
+
+-- INFO: Format C code on save
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--     pattern = {"*.c"},
+--     callback = function()
+--       vim.lsp.buf.format()
+--     end,
+-- })
