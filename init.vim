@@ -44,6 +44,9 @@ if (has("nvim"))
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     Plug 'folke/neodev.nvim'
+    " Plug 'ray-x/go.nvim'
+    " Plug 'ray-x/guihua.lua'
+    " Plug 'fatih/vim-go', { 'for': 'go' }
     " tsserver alternative (too early)
     "Plug 'pmizio/typescript-tools.nvim'
 
