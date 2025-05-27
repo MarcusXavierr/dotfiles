@@ -24,6 +24,10 @@ local test = s("test", fmt([[
         i(1,"Name"),
         i(2,"// test code"),
     }))
+
 table.insert(snippets, test)
+
+local dot = s(".", fmt([[->]],{}))
+table.insert(snippets, dot)
 
 return snippets, autosnippets

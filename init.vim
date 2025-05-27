@@ -16,7 +16,7 @@ Plug 'tpope/vim-fugitive'
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit' : '4cccb6f494eb255b32a290d37c35ca12584c74d0'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
 Plug 'rmagatti/auto-session', { 'commit': '39319bf7ad15a1881f180fa7c14bf6703775035e' }
-" Plug 'ActivityWatch/aw-watcher-vim'
+Plug 'ActivityWatch/aw-watcher-vim'
 Plug 'vim-test/vim-test'
 if (has("nvim"))
     Plug 'nvim-lua/plenary.nvim'
@@ -44,6 +44,9 @@ if (has("nvim"))
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     Plug 'folke/neodev.nvim'
+    " Plug 'ray-x/go.nvim'
+    " Plug 'ray-x/guihua.lua'
+    " Plug 'fatih/vim-go', { 'for': 'go' }
     " tsserver alternative (too early)
     "Plug 'pmizio/typescript-tools.nvim'
 
@@ -54,19 +57,25 @@ if (has("nvim"))
     Plug 'theHamsta/nvim-dap-virtual-text'
     Plug 'nvim-telescope/telescope-dap.nvim'
     Plug 'Weissle/persistent-breakpoints.nvim'
+    Plug 'mfussenegger/nvim-dap-python'
 
     " Themes
     Plug 'catppuccin/nvim'
+    Plug 'morhetz/gruvbox'
     Plug 'folke/tokyonight.nvim'
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'navarasu/onedark.nvim'
     Plug 'EdenEast/nightfox.nvim'
     Plug 'maxmx03/fluoromachine.nvim'
+    Plug 'supermaven-inc/supermaven-nvim'
+    Plug 'MeanderingProgrammer/markdown.nvim', { 'commit': '64969bc94a9d633dc23b59a382cab407c99fecb1' }
+    " Plug 'mikavilpas/yazi.nvim'
     endif
 
 call plug#end()
 
 " INFO: Plugin configurations
+lua require('supermaven-nvim').setup({})
 lua require('marcusxavier.plugins.lsp')
 lua require('marcusxavier.plugins.debugprint')
 lua require('marcusxavier.plugins.todo')
@@ -74,6 +83,7 @@ lua require('marcusxavier.plugins.treesitter.index')
 lua require('marcusxavier.plugins.luasnip')
 lua require('marcusxavier.plugins.comment_nvim')
 lua require('marcusxavier.plugins.telescope')
+lua require('marcusxavier.plugins.markdown')
 " INFO: A last but not least, others plugins configurations
 lua require('marcusxavier.plugins.others')
 
@@ -120,7 +130,6 @@ let g:blamer_show_in_insert_modes = 0
 let g:blamer_delay = 300
 let NERDTreeShowHidden=1
 let g:rainbow_active = 1
-
 autocmd Filetype vue setl shiftwidth=2
 autocmd Filetype javascript,typescript setl shiftwidth=2
 autocmd Filetype html,javascriptreact,typescriptreact setl shiftwidth=2
@@ -138,7 +147,8 @@ else
 endif
 let test#php#runner='phpunit'
 " let test#php#phpunit#executable=' docker-compose -f ./docker-compose.yml exec -u appmax -T php-fpm vendor/bin/phpunit'
-let test#php#phpunit#executable=' docker exec -it optimusPrimeApi vendor/bin/phpunit'
+" let test#php#phpunit#executable=' docker exec -it optimusPrimeApi vendor/bin/phpunit'
+" let test#php#phpunit#executable=' docker exec -it plataformabiTranscriber vendor/bin/phpunit'
 
 
 "emmet
@@ -180,7 +190,9 @@ let g:dracula_italic = 1
 let g:dracula_colorterm = 1
 let g:dracula_bold = 1
 let g:dracula_full_special_attrs_support = 1
-let g:airline_theme = 'sonokai'
+let g:airline_theme = 'catppuccin'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 
 " colorscheme dracula
 
@@ -241,7 +253,7 @@ nnoremap <leader>cs :! php ~/.php/phpcs --standard=PSR12 %:p <CR>
 nnoremap <leader>cb :! php ~/.php/phpcbf --standard=PSR12 %:p <CR>
 "" A syntax for placeholders
 " Pressing Control-j jumps to the next match.
-nmap <space><space> <Esc>/<++><CR><Esc>cf>
+nmap <space><space> <Esc>/<++><CR><Esc>"0cf>
 "
 " autocmd"""""""""
 augroup teste
@@ -287,6 +299,7 @@ require'colorizer'.setup({
   css = { rgb_fn = true; names = true; hsl_fn = true}; -- Enable parsing rgb(...) functions in css.
   scss = { rgb_fn = true; names = true; hsl_fn = true}; -- Enable parsing rgb(...) functions in css.
   vue = { names = true; }; -- Enable parsing rgb(...) functions in css.
+  json = { names = true; };
   },
   { names = false }
 )
@@ -297,7 +310,6 @@ end
 set foldtext=CustomText()
 
 function! CustomText()
-     "get first non-blank line
     let fs = v:foldstart
     while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
     endwhile
@@ -344,10 +356,23 @@ let work_tasks.ext = '.md'
 let g:vimwiki_list = [wiki, interviews, tasks, work_tasks]
 " let g:vimwiki_folding = 'list'
 let g:vimwiki_listsyms = ' ○◐●✓'
+let g:vimwiki_listsyms = ' ○◐●x'
 let g:vimwiki_folding = 'custom'
 " =======================================================
 "
-
+if exists("g:neovide")
+" Notebook
+" lua vim.o.guifont = "Jetbrains Mono:h9"
+" Desktop
+lua vim.o.guifont = "Jetbrains Mono:h14"
+" lua vim.g.gui_font_default_size = 12
+" lua vim.o.guifont = "Source Code Pro:h14.5"
+" lua vim.o.guifont = "Fira Code:h14.5"
+" lua vim.g.neovide_transparency = 0.98
+lua vim.g.neovide_cursor_animation_length = 0
+let g:neovide_scroll_animation_length = 0.4
+let g:neovide_cursor_animate_command_line = v:false
+endif
 
 nmap <leader>d 0oo##jj:pu=strftime('%y-%m-%d %H:%M')0DkA jjpoo   ### Situation: <++>jjoo### Emotions: <++>jjoo### Thoughts: <++>jj
 nmap <leader>mc oocardjj:pu=strftime('%y-%m-%d')Dk$a_jjpv0
@@ -375,5 +400,21 @@ command SetMarksVue call ApplyMarksToVueFile()
 nmap <space>v <cmd>SetMarksVue<cr>
 
 "tmp mappings
-nmap <space>jt :!npx jest
+nmap <space>jt :!npx jest<cr>
 command! DapRunToCursor lua require('dap').run_to_cursor()
+nmap <space>dt :!dotnet test<cr>
+
+imap <C-s> <Plug>(copilot-suggest)
+imap <A-s> <Plug>(copilot-accept-line)
+
+" lua require('marcusxavier.lazy.init')
+"
+" lua << EOF
+" vim.notify = function(msg, ...)
+"     -- Only suppress the specific treesitter error during Go debugging
+"     if msg:match("Error executing vim.schedule lua callback: /usr/share/nvim/runtime/lua/vim/treesitter/query.lua:259: query: invalid node type") then
+"         return
+"     end
+"     vim.api.nvim_notify(msg, ...)
+" end
+" EOF

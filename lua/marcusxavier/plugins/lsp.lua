@@ -3,6 +3,7 @@ require("neodev").setup({
     library = { plugins = { "nvim-dap-ui" }, types = true }
 })
 
+local usingVue3 = false
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local map = vim.keymap.set
 ---@diagnostic disable-next-line: unused-local
@@ -10,7 +11,8 @@ local function keymap_lsp(client)
     map('n', 'K', vim.lsp.buf.hover, {buffer=0})
     map('n', 'gd', vim.lsp.buf.definition, {buffer=0})
     map('n', 'gt', vim.lsp.buf.type_definition, {buffer=0})
-    map('n', 'gi', vim.lsp.buf.implementation, {buffer=0})
+    -- map('n', 'gi', vim.lsp.buf.implementation, {buffer=0})
+    map('n', 'gi', function() require('telescope.builtin').lsp_implementations() end, {buffer=0})
     -- map('n', 'gr', vim.lsp.buf.references, {buffer=0})
     map('n', 'gr', function() require('telescope.builtin').lsp_references() end, {buffer=0}) -- This will show references on telescope with nice preview
     map('n', '<space>dj', vim.diagnostic.goto_next, {buffer=0})
@@ -26,17 +28,17 @@ require'lspconfig'.gopls.setup{
     on_attach = keymap_lsp,
 }
 
-require'lspconfig'.tsserver.setup{
-    capabilities=capabilities,
-    on_attach=keymap_lsp,
-}
-
 -- require'lspconfig'.intelephense.setup{
 --     capabilities=capabilities,
 --     on_attach=keymap_lsp,
 -- }
 
 require'lspconfig'.phpactor.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp,
+}
+
+require'lspconfig'.metals.setup{
     capabilities=capabilities,
     on_attach=keymap_lsp,
 }
@@ -53,15 +55,24 @@ require'lspconfig'.dockerls.setup{
 }
 -- HACK: End docker config
 
--- require'lspconfig'.volar.setup{
---     capabilities=capabilities,
---     on_attach=keymap_lsp,
--- }
 
--- require'lspconfig'.vuels.setup{
---     capabilities=capabilities,
---     on_attach=keymap_lsp,
--- }
+if usingVue3 then
+    require'lspconfig'.volar.setup{
+        capabilities=capabilities,
+        on_attach=keymap_lsp,
+        filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
+    }
+else
+    require'lspconfig'.tsserver.setup{
+        capabilities=capabilities,
+        on_attach=keymap_lsp,
+    }
+
+    require'lspconfig'.vuels.setup{
+        capabilities=capabilities,
+        on_attach=keymap_lsp,
+    }
+end
 
 -- C/C++ LSP
 require'lspconfig'.clangd.setup{
@@ -77,14 +88,14 @@ require'lspconfig'.cssls.setup{
     on_attach=keymap_lsp,
 }
 
--- require'lspconfig'.tailwindcss.setup{
---     filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'blade'},
---     capabilities=capabilities,
---     on_attach = function(client)
---         keymap_lsp(client)
---         client.server_capabilities.completionProvider = false
---     end
--- }
+require'lspconfig'.tailwindcss.setup{
+    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'blade'},
+    capabilities=capabilities,
+    on_attach = function(client)
+        keymap_lsp(client)
+        client.server_capabilities.completionProvider = false
+    end
+}
 
 require'lspconfig'.racket_langserver.setup{
     capabilities=capabilities,
@@ -124,12 +135,37 @@ require'lspconfig'.lua_ls.setup {
 -- Python LSP
 require'lspconfig'.pyright.setup{
     capabilities=capabilities,
-    on_attach=keymap_lsp
+    on_attach=keymap_lsp,
+    on_new_config = function(config, root_dir)
+        local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
+        if string.len(env) > 0 then
+          config.settings.python.pythonPath = env .. '/bin/python'
+        end
+    end
 }
 
-require'lspconfig'.csharp_ls.setup{
+-- require'lspconfig'.csharp_ls.setup{
+--     capabilities=capabilities,
+--     on_attach=keymap_lsp
+-- }
+
+require'lspconfig'.hls.setup{
     capabilities=capabilities,
-    on_attach=keymap_lsp
+    on_attach=function (client, buf)
+        require"lsp_signature".on_attach({
+            bind = true,
+            handler_opts = {border = "single"}
+        })
+
+        vim.api.nvim_buf_set_option(buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+        keymap_lsp(client)
+    end,
+}
+
+require'lspconfig'.nginx_language_server.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp,
 }
 
 -- require'lspconfig'.eslint.setup({
@@ -140,6 +176,17 @@ require'lspconfig'.csharp_ls.setup{
 --     })
 --   end,
 -- })
+
+require'lspconfig'.cmake.setup{
+    capabilities=capabilities,
+    on_attach=keymap_lsp,
+}
+
+require'lspconfig'.java_language_server.setup{
+    cmd={"/home/marcus/builds/java-language-server/dist/lang_server_linux.sh"},
+    capabilities=capabilities,
+    on_attach=keymap_lsp,
+}
 
 vim.opt.completeopt={"menu", "menuone", "noselect"} -- don't autocomplete first option automatically
 

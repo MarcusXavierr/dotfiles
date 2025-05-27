@@ -6,6 +6,10 @@ require("nvim-dap-virtual-text").setup()
 require("dap-go").setup()
 require("marcusxavier.dap.dapui")
 require("marcusxavier.dap.langs.php")
+require("marcusxavier.dap.langs.python")
+require("marcusxavier.dap.langs.c")
+require('dap-python').setup('python')
+-- require("marcusxavier.dap.langs.javascript")
 
 -- Control nvim dap with function keys
 vim.keymap.set("n", "<F5>", ":lua require'dap'.continue()<CR>")

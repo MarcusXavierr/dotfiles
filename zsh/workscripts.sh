@@ -97,30 +97,109 @@ function workide() {
 
 #}}}
 
-function upvpn() {
-    echo 'R7cbe5rCN4FYpVr8' | nmcli --ask con up id Marcus-Xavier
-}
-
 function setup_log() {
-    upvpn
-
     echo "open pbi homol"
-    nohup open http://plataforma.homol.logcomex.io/signIn/ > /dev/null 2>&1&
+    nohup xdg-open http://plataforma.homol.logcomex.io/signIn/ > /dev/null 2>&1&
     sleep 4
 
     echo "open jira"
-    nohup open https://logcomex.atlassian.net/jira/software/c/projects/LOG/boards/79 > /dev/null 2>&1&
+    nohup xdg-open https://logcomex.atlassian.net/jira/software/c/projects/LOG/boards/135 > /dev/null 2>&1&
     sleep 3
 
-    echo "open lg"
-    echo 'marcus.xavier@logcomex.com' | xclip -selection c
-    nohup open https://login.lg.com.br/login/logcomex > /dev/null 2>&1&
-    sleep 4
-
     echo "open pbi homol again"
-    nohup open http://plataforma.homol.logcomex.io/signIn/ > /dev/null 2>&1&
+    nohup xdg-open http://plataforma.homol.logcomex.io/signIn/ > /dev/null 2>&1&
 }
 
 function start_task() {
     git checkout homol && git pull && git checkout -b "feature/${1}-homol"
+}
+
+
+function migrateFile() {
+    src="$1"
+    dst="$2"
+
+    if [ -z "$src" ] || [ -z "$dst" ]; then
+        echo "Usage: migrateFile <source> <destination>"
+        return
+    fi
+
+    file=$(find "$src" -type f -print | fzf)
+    folderDst=$(find "$dst" -type d -print | fzf)
+
+    echo "Copying $file to $folderDst"
+    cp "$file" "$folderDst"
+}
+
+function _say() {
+    clear
+    cowsay -f dragon "$1" | lolcat
+    sleep 2
+    clear
+}
+
+function _setupBasics() {
+    _say "Let's get started"
+    echo "Open product"
+    xdg-open http://plataforma.homol.logcomex.io/ > /dev/null 2>&1
+    sleep 1
+    xdg-open http://plataforma.homol.logcomex.io/ > /dev/null 2>&1
+    sleep 1
+    xdg-open https://logcomex.atlassian.net/jira/software/c/projects/LOG/boards/188 > /dev/null 2>&1
+    sleep 1
+
+    echo "Open slack"
+    slack &> /dev/null 2>&1 &
+    echo "Done!"
+}
+
+function setupBackend() {
+    SESSION_NAME="backend"
+    _setupBasics
+    _say "Now let's setup the backend"
+
+    echo 'Start docker'
+    echo marcus | sudo -S systemctl start docker
+
+    echo 'Enter backend repository'
+    cd ~/work/repositories/plataformabi-back
+    docker-compose -f .docker/dev/docker-compose.yml up -d
+
+    echo 'Enter elastic search repository'
+    cd ~/work/repositories/plataformabi-conector-elastic-search
+    docker compose up -d
+
+    echo 'Go back so we can start the tmux session'
+    cd -
+
+    tmux new-session -d -s "$SESSION_NAME"
+    sleep 0.5
+
+    # Define targets
+    TARGET_SESSION="$SESSION_NAME"
+    TARGET_WINDOW_0="$SESSION_NAME:0"
+    TARGET_WINDOW_1="$SESSION_NAME:1"
+
+    # First create the bottom pane (split from the main pane)
+    tmux split-pane -v -t "$SESSION_NAME:0.0"
+
+    # Now the bottom pane is pane 1, resize it to be smaller (12 cells)
+    tmux resize-pane -t "$SESSION_NAME:0.0" -y 12
+
+    # Now split the top pane horizontally to get left and right panes
+    tmux split-pane -h -t "$SESSION_NAME:0.1"
+
+    # Create a new window
+    tmux new-window -t "$TARGET_SESSION"
+
+    # Rename window 1 to "backend"
+    tmux rename-window -t "$TARGET_WINDOW_1" backend
+
+    echo "Tmux session '$SESSION_NAME' configured."
+
+    # Optional: Attach to the session
+    tmux attach-session -t "$SESSION_NAME"
+
+    echo "Open vim wiki"
+    tmux send-keys -t "$SESSION_NAME:0.0" C-z 'vw' Enter
 }

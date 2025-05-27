@@ -1,7 +1,7 @@
 require("tokyonight").setup({
     style = "storm",
     terminal_colors = true,
-    transparent = false,
+    transparent = true,
        styles = {
        sidebars = "transparent",
        floats = "transparent",

@@ -38,8 +38,8 @@ function lgwt() {
 }
 
 function own_commits() {
-    git filter-branch --env-filter 'if [ "$GIT_AUTHOR_EMAIL" = "marcus.xavier@appmax.com.br" ]; then
-    GIT_AUTHOR_EMAIL=marcusxavierr123@gmail.com;
+    git filter-branch --env-filter 'if [ "$GIT_AUTHOR_EMAIL" = "$1" ]; then
+    GIT_AUTHOR_EMAIL="$2";
     GIT_AUTHOR_NAME="Marcus Xavier";
     GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL;
     GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"; fi' -- --all
@@ -55,23 +55,22 @@ function startNodeProject() {
     mkdir "$1" && cd "$1" && npm init -y && npm i typescript tsx @types/node -D && npm tsc —init
 }
 
-function genWeeklyWiki() {
-    # Get the current week number (considering the week starts on Sunday)
-    week=$(date +%U)
 
-    # Get the start (Sunday) and end (Saturday) days of the current week
-    start_day=$(date -d "$(date +%Y-%m-01) +$((($week - 1) * 7 + 1)) days" +%d-%b)
-    end_day=$(date -d "$(date +%Y-%m-01) +$((($week - 1) * 7 + 7)) days" +%d-%b)
-
-    # Create the directory name
-    directory_name=$(date +%Y)__${start_day}_${end_day}
-
-    # Create the directory
-    mkdir $directory_name
-
-    # Create index.md file inside the created directory
-    touch ./$directory_name/index.md
-
-    # Modify Home.md file in the current directory to add the link to index.md
-    sed -i "1i [Week $week | $start_day - $end_day](${directory_name}/index.md)" Home.md
+function mergeFilesIntoArray() {
+    jq -nR 'inputs as $a | inputs | reduce (inputs | select(. != "")) as $b ([]; . + [{name: $a, link: $b}])' "$1" "$2"
 }
+
+conda_init() {
+    __conda_setup="$('/home/marcus/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/home/marcus/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "/home/marcus/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/home/marcus/miniconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+}
+

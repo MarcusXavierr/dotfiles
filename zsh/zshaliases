@@ -1,5 +1,6 @@
 #personal aliases
 alias vw=nvim\ ~/tmp/wiki/index.md
+alias work="nvim ~/Projects/obsidian/Work/Tasks/index.md"
 alias vz="cd ~/Projects/obsidian/Obsidian && zettelkasten"
 alias c=bat
 alias aic=aicommits
@@ -43,3 +44,4 @@ alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 alias teste='cd ~/tmp/testing_projects/'
 alias open_pr=gh pr view --web
+alias dev='nix develop ~/Projects/nix'

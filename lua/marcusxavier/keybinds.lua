@@ -124,3 +124,12 @@ map('n', '<space>x', '<cmd>!npx eslint --fix %<cr>') -- HACK: run eslint
 map('n', '<space>jx', '<cmd>%! jq . <cr>') -- HACK: format json
 map('n', '<space>jm', '<cmd>%! jq -r tostring <cr>') -- HACK: minimize JSON
 map('n', '<space>jp', '<cmd>!./vendor/bin/phpcbf --standard=PSR12 --encoding=utf-8 -p --report=code --colors % <cr>')
+
+
+-- INFO: Codelens stuff. Used in haskell
+map('n', '<space>cr', '<cmd>lua vim.lsp.codelens.refresh()<cr>')
+map('n', '<space>cl', '<cmd>lua vim.lsp.codelens.run()<cr>')
+map('n', '<A-l>', function ()
+    vim.lsp.codelens.refresh()
+    vim.lsp.codelens.run()
+end)
