@@ -133,3 +133,11 @@ map('n', '<A-l>', function ()
     vim.lsp.codelens.refresh()
     vim.lsp.codelens.run()
 end)
+
+local function stage_and_commit_buffer()
+    vim.cmd("write")
+    vim.cmd("Gwrite")
+    vim.cmd("Git commit")
+end
+
+map('n', '<space>gc', stage_and_commit_buffer)
