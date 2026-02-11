@@ -51,6 +51,8 @@ map('n', 'ghp', '<Plug>(GitGutterPreviewHunk)')
 -- Fugitive Mappings
 map('n', '<C-g>', ':G <CR>')
 map('n', '<space>b', ':G blame <CR>')
+map('n', '<space>gh', '<cmd>Ghdiffsplit<cr>')
+map('n', '<space>gv', '<cmd>Gvdiffsplit<cr>')
 -- map('n', '<leader>c', '<cmd>G commit <CR>')
 
 -- Vim Go

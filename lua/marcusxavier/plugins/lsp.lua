@@ -137,12 +137,23 @@ require'lspconfig'.pyright.setup{
     capabilities=capabilities,
     on_attach=keymap_lsp,
     on_new_config = function(config, root_dir)
-        local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
-        if string.len(env) > 0 then
-          config.settings.python.pythonPath = env .. '/bin/python'
-        end
+        -- local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
+        -- if string.len(env) > 0 then
+        --   config.settings.python.pythonPath = env .. '/bin/python'
+        -- end
     end
 }
+
+-- require'lspconfig'.basedpyright.setup{
+--     capabilities=capabilities,
+--     on_attach=keymap_lsp,
+--     on_new_config = function(config, root_dir)
+--         local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
+--         if string.len(env) > 0 then
+--           config.settings.python.pythonPath = env .. '/bin/python'
+--         end
+--     end
+-- }
 
 -- require'lspconfig'.csharp_ls.setup{
 --     capabilities=capabilities,
@@ -184,6 +195,11 @@ require'lspconfig'.cmake.setup{
 
 require'lspconfig'.java_language_server.setup{
     cmd={"/home/marcus/builds/java-language-server/dist/lang_server_linux.sh"},
+    capabilities=capabilities,
+    on_attach=keymap_lsp,
+}
+
+require'lspconfig'.r_language_server.setup{
     capabilities=capabilities,
     on_attach=keymap_lsp,
 }

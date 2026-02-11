@@ -10,9 +10,9 @@ if is_light then
     vim.cmd.colorscheme('catppuccin-latte')
     vim.o.background = 'light'
 else
-vim.cmd.colorscheme('catppuccin-macchiato')
+-- vim.cmd.colorscheme('catppuccin-macchiato')
 -- vim.cmd.colorscheme('catppuccin')
 -- vim.cmd.colorscheme('gruvbox')
 -- vim.cmd.colorscheme('onedark')
--- vim.cmd.colorscheme('tokyonight')
+vim.cmd.colorscheme('tokyonight')
 end
