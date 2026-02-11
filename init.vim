@@ -65,6 +65,7 @@ if (has("nvim"))
     Plug 'folke/tokyonight.nvim'
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'navarasu/onedark.nvim'
+    " Plug 'olimorris/onedarkpro.nvim'
     Plug 'EdenEast/nightfox.nvim'
     Plug 'maxmx03/fluoromachine.nvim'
     Plug 'supermaven-inc/supermaven-nvim'
@@ -406,6 +407,7 @@ nmap <space>dt :!dotnet test<cr>
 
 imap <C-s> <Plug>(copilot-suggest)
 imap <A-s> <Plug>(copilot-accept-line)
+nmap <Space>k <cmd>!npx prettier "%" --write<cr>
 
 " lua require('marcusxavier.lazy.init')
 "
