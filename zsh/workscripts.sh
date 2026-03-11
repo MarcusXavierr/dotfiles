@@ -203,3 +203,27 @@ function setupBackend() {
     echo "Open vim wiki"
     tmux send-keys -t "$SESSION_NAME:0.0" C-z 'vw' Enter
 }
+
+function login_as_specialist() {
+    TOKEN=$(curl -s 'http://api.g4.com/api/login' \
+      -H 'Content-Type: application/json' \
+      -H 'accept: application/json' \
+      --data-raw '{"username": "sl_vlad", "password": "Password0"}' \
+      --insecure | jq -r '.access_token')
+
+    URL="http://localhost:3000/redirect/?route_name=dashboard&token=${TOKEN}"
+    echo "$URL"
+    xdg-open "$URL" > /dev/null 2>&1 &
+}
+
+function login_as_portal() {
+    TOKEN=$(curl -s 'http://api.g4.com/api/portal/login' \
+      -H 'Content-Type: application/json' \
+      -H 'accept: application/json' \
+      --data-raw '{"email": "portal+3331016@test.local", "password": "test_3331016"}' \
+      --insecure | jq -r '.access_token')
+
+    URL="http://localhost:3000/redirect/?route_name=portal%2FactivateList&portalToken=${TOKEN}"
+    echo "$URL"
+    xdg-open "$URL" > /dev/null 2>&1 &
+}
