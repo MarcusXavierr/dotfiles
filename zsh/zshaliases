@@ -49,5 +49,5 @@ alias dev='nix develop ~/Projects/nix'
 alias cleanup-mcp="docker ps -q --filter ancestor=crystaldba/postgres-mcp | xargs -r docker rm -f"
 alias anti="nvm use 22 && PORT=6660 antigravity-claude-proxy start; nvm use 18"
 
-alias kimi="clother-kimi"
-alias zai="clother-zai"
+alias kimi="clother-kimi --dangerously-skip-permissions"
+alias zai="clother-zai --dangerously-skip-permissions --model glm-4.7"
